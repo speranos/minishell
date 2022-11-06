@@ -2,7 +2,6 @@
 
 int main(int ac, char **av, char **env)
 {
-    // int i;
     (void)av;
     (void)ac;
     (void)env;
@@ -12,8 +11,6 @@ int main(int ac, char **av, char **env)
         str = readline("ach_tama> ");
         printf("str ====== %s\n", str);
 	}
-    // printf("str === %s\n", str);
-
     // i = 0;
     // while(env[i])
     // {
