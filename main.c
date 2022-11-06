@@ -1,5 +1,15 @@
 #include "minishell.h"
 
+void    ft_args_check(int ac, char **av, char **env)
+{
+    (void)av;
+    (void)env;
+    if(ac != 1)
+    {
+        printf("arg...error!!!\nprogram...exit...byye!!!\n");
+        exit(0);
+    }
+}
 void    ft_intro(void)
 {
     printf(" _________________________ \\\\\\\\ WELCOME TO MINISHELL ////  _________________________ \n");
@@ -7,10 +17,8 @@ void    ft_intro(void)
 
 int main(int ac, char **av, char **env)
 {
-    (void)av;
-    (void)ac;
-    (void)env;
     char    *str;
+    ft_args_check(ac, av, env);
     ft_intro();
 	while(1)
 	{
