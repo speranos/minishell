@@ -1,11 +1,17 @@
 #include "minishell.h"
 
+void    ft_intro(void)
+{
+    printf(" _________________________ \\\\\\\\ WELCOME TO MINISHELL ////  _________________________ \n");
+}
+
 int main(int ac, char **av, char **env)
 {
     (void)av;
     (void)ac;
     (void)env;
     char    *str;
+    ft_intro();
 	while(1)
 	{
         str = readline("ach_tama> ");
