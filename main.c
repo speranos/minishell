@@ -17,11 +17,16 @@ void    ft_intro(void)
 
 int main(int ac, char **av, char **env)
 {
-    char    *str;
+    char    *input;
     ft_args_check(ac, av, env);
     ft_intro();
 	while(1)
 	{
-        str = readline("ach_tama>$ ");
+        input = readline("ach_tama>$ ");
+		if(*input != '\0')
+		{
+			add_history(input);
+		}
+
 	}
 }
