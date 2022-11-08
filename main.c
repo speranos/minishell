@@ -26,6 +26,7 @@ int main(int ac, char **av, char **env)
 		if(*input != '\0')
 		{
 			add_history(input);
+            ft_lexxx(input);
 		}
 
 	}
