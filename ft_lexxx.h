@@ -1,13 +1,16 @@
 #ifndef FT_LEXXX_H
 #define FT_LEXXX_H
 
-typedef struct tokens
-{
+// typedef struct tokens
+// {
 
-}   t_tokens;
+// }   t_tokens;
 
 typedef struct lexer
 {
+	int     i;
+	char    c;
+	char	*input;
 
 }   t_lexer;
 
