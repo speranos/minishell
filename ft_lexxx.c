@@ -1,31 +1,34 @@
 #include "minishell.h"
 
 
-void    ft_skip_spaces(t_lexer *lexer)
-{
-    if(lexer->c <= 32)
-        lexer->i++;
-
-}
-
-void    ft_token(t_lexer *lexer)
-{
-    (void)lexer;
-}
-
 void    ft_lexxx(char *input)
 {
-    t_lexer lexer;
+	t_lexer lexer;
 
-    lexer.i = 0;
-    lexer.input = input;
-    lexer.c = lexer.input[lexer.i];
-    while(input[lexer.i])
-    {
-        ft_skip_spaces(&lexer);
-        ft_token(&lexer);
-        lexer.i++;
-        lexer.c = lexer.input[lexer.i];
-    }
-    
+	lexer.i = 0;
+	lexer.input = input;
+	lexer.c = lexer.input[lexer.i];
+	while(lexer.input[lexer.i])
+	{
+		if(lexer.c <= 32)
+			ft_skip_spaces(&lexer);
+		else
+			{
+				ft_searche(&lexer);
+				// lexer.i++;
+				// lexer.c = lexer.input[lexer.i];
+			}
+	}
+	
+}
+
+void    ft_searche(t_lexer *lexer)
+{   
+	if(lexer->c == '|')
+		ft_token(token_pipe, ft_conv_to_str(lexer->c));
+	else
+		ft_token(token_string, ft_get_str(lexer));
+	lexer->i++;
+	lexer->c = lexer->input[lexer->i];
+	
 }

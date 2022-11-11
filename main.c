@@ -12,7 +12,7 @@ void    ft_args_check(int ac, char **av, char **env)
 }
 void    ft_intro(void)
 {
-    printf("\n\n\t\t\t\t\\\\\\\\ WELCOME TO MINISHELL //// \n\n");
+    printf("\n\n\t\t\t\t\t\\\\\\\\ WELCOME TO MINISHELL //// \n\n");
 }
 
 int main(int ac, char **av, char **env)
@@ -30,4 +30,5 @@ int main(int ac, char **av, char **env)
 		}
 
 	}
+    // t_token *token = ft_token
 } 
