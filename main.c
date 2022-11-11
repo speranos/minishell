@@ -2,33 +2,31 @@
 
 void    ft_args_check(int ac, char **av, char **env)
 {
-    (void)av;
-    (void)env;
-    if(ac != 1)
-    {
-        printf("arg...error!!!\nprogram...exit...byye!!!\n");
-        exit(0);
-    }
+	(void)av;
+	(void)env;
+	if(ac != 1)
+	{
+		printf("arg...error!!!\nprogram...exit...byye!!!\n");
+		exit(0);
+	}
 }
 void    ft_intro(void)
 {
-    printf("\n\n\t\t\t\t\t\\\\\\\\ WELCOME TO MINISHELL //// \n\n");
+	printf("\n\n\t\t\t\t\t\\\\\\\\ WELCOME TO MINISHELL //// \n\n");
 }
 
 int main(int ac, char **av, char **env)
 {
-    char    *input;
-    ft_args_check(ac, av, env);
-    ft_intro();
+	char    *input;
+	ft_args_check(ac, av, env);
+	ft_intro();
 	while(1)
 	{
-        input = readline("ach_tama>$ ");
+		input = readline("ach_tama>$ ");
 		if(*input != '\0')
 		{
 			add_history(input);
-            ft_lexxx(input);
+			ft_lexxx(input);
 		}
-
 	}
-    // t_token *token = ft_token
 } 

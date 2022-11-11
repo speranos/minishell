@@ -26,5 +26,9 @@ void	ft_token(int type, char *str);
 char	*ft_conv_to_str(char c);
 void	ft_skip_spaces(t_lexer *lexer);
 void	ft_print(t_token token);
+int		ft_check_str(char c);
+char	*ft_get_str(t_lexer *lexer);
+int		ft_check_str(char c);
+void    ft_searche(t_lexer *lexer);
 
 #endif

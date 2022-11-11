@@ -13,11 +13,7 @@ void    ft_lexxx(char *input)
 		if(lexer.c <= 32)
 			ft_skip_spaces(&lexer);
 		else
-			{
-				ft_searche(&lexer);
-				// lexer.i++;
-				// lexer.c = lexer.input[lexer.i];
-			}
+			ft_searche(&lexer);
 	}
 	
 }
@@ -26,9 +22,14 @@ void    ft_searche(t_lexer *lexer)
 {   
 	if(lexer->c == '|')
 		ft_token(token_pipe, ft_conv_to_str(lexer->c));
+	else if(lexer->c == '>' || lexer->c == '<')
+		exit(0);
+	else if(lexer->c == '$')
+		exit(0);
+	else if(lexer->c == '"')
+		exit(0);
 	else
 		ft_token(token_string, ft_get_str(lexer));
 	lexer->i++;
 	lexer->c = lexer->input[lexer->i];
-	
 }

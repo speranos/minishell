@@ -12,6 +12,5 @@ void    ft_token(int type, char *str)
 
 void    ft_print(t_token token)
 {
-    printf("hiiiii \n");
     printf("token(%d, %s)\n",token.type, token.str);
 }
