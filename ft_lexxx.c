@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 void    ft_lexxx(char *input)
 {
 	t_lexer lexer;
@@ -23,10 +22,6 @@ void    ft_searche(t_lexer *lexer)
 	if(lexer->c == '|')
 		ft_token(token_pipe, ft_conv_to_str(lexer->c));
 	else if(lexer->c == '>' || lexer->c == '<')
-		exit(0);
-	else if(lexer->c == '$')
-		exit(0);
-	else if(lexer->c == '"')
 		exit(0);
 	else
 		ft_token(token_string, ft_get_str(lexer));

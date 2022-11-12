@@ -28,7 +28,10 @@ void	ft_skip_spaces(t_lexer *lexer);
 void	ft_print(t_token token);
 int		ft_check_str(char c);
 char	*ft_get_str(t_lexer *lexer);
-int		ft_check_str(char c);
+// int		ft_check_str(char c);
 void    ft_searche(t_lexer *lexer);
+void	ft_syntax_error(void);
+void	ft_quotes_check(t_lexer *lexer);
+// int		ft_check_end_quotes(t_lexer *lexer, int a);
 
 #endif
