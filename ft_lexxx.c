@@ -22,7 +22,7 @@ void    ft_searche(t_lexer *lexer)
 	if(lexer->c == '|')
 		ft_token(token_pipe, ft_conv_to_str(lexer->c));
 	else if(lexer->c == '>' || lexer->c == '<')
-		exit(0);
+		ft_redirection(lexer);
 	else
 		ft_token(token_string, ft_get_str(lexer));
 	lexer->i++;
