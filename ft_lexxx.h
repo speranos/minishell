@@ -6,6 +6,7 @@ typedef struct lexer
 {
 	int     i;
 	char    c;
+	int		len;
 	char	*input;
 
 }   t_lexer;
@@ -26,12 +27,11 @@ void	ft_token(int type, char *str);
 char	*ft_conv_to_str(char c);
 void	ft_skip_spaces(t_lexer *lexer);
 void	ft_print(t_token token);
-int		ft_check_str(char c);
+int		ft_check_sym(char c, t_lexer *lexer);
 char	*ft_get_str(t_lexer *lexer);
-// int		ft_check_str(char c);
 void    ft_searche(t_lexer *lexer);
 void	ft_syntax_error(void);
 void	ft_quotes_check(t_lexer *lexer);
-// int		ft_check_end_quotes(t_lexer *lexer, int a);
+void	ft_quotes_skip(t_lexer *lexer);
 
 #endif

@@ -3,25 +3,23 @@
 char	*ft_get_str(t_lexer *lexer)
 {
 	int		i;
-	int		a;
 	char	*ret;
 
 	i = 0;
-	a = lexer->i;
-	ft_quotes_check(lexer);
-	while(lexer->input[a] && ft_check_str(lexer->input[a]) != 1)
-		a++;
-	i = a - lexer->i;
-	a = 0;
+	lexer->len = lexer->i;
+	while(lexer->input[lexer->len] && ft_check_sym(lexer->input[lexer->len], lexer) != 1)
+		lexer->len++;
+	i = lexer->len - lexer->i;
+	lexer->len = 0;
 	ret = malloc(sizeof(char) * i + 1);
-	while(a < i)
-		ret[a++] = lexer->input[lexer->i++];
-	ret[a] = '\0';
+	while(lexer->len < i)
+		ret[lexer->len++] = lexer->input[lexer->i++];
+	ret[lexer->len] = '\0';
 	lexer->i--;
 	return(ret);
 }
 
-int	ft_check_str(char c)
+int	ft_check_sym(char c, t_lexer *lexer)
 {
 	if(c <= 32)
 		return(1);
@@ -29,5 +27,16 @@ int	ft_check_str(char c)
 		return(1);
 	else if(c == '>' || c == '<')
 		return(1);
+	else if(c == '"')
+		ft_quotes_skip(lexer);
 	return(0);
+}
+
+void	ft_quotes_skip(t_lexer *lexer)
+{
+	lexer->len++;
+	while(lexer->input[lexer->len] && (lexer->input[lexer->len] != '"'))
+		lexer->len++;
+	if(lexer->input[lexer->len] == '\0')
+		ft_syntax_error();
 }
