@@ -17,5 +17,5 @@ void    ft_print(t_token token)
 
 void	ft_syntax_error(void)
 {
-	printf("syntax...error...\n");
+	printf("minishell: syntax...error...\n");
 }
