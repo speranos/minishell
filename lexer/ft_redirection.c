@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void    ft_redirection(t_lexer *lexer)
 {
@@ -60,6 +60,6 @@ void	ft_red_output(t_lexer *lexer)
 
 void	ft_ignore_spaces(t_lexer *lexer)
 {
-	while(lexer->input[lexer->i] <= 32)
+	while(lexer->input[lexer->i] && lexer->input[lexer->i] <= 32)
 		lexer->i++;
 }

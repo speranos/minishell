@@ -41,5 +41,6 @@ void	ft_app_error(t_lexer *lexer);
 void	ft_red_input(t_lexer *lexer);
 void	ft_app_input(t_lexer *lexer);
 void	ft_ignore_spaces(t_lexer *lexer);
+void	ft_single_quotes(t_lexer *lexer);
 
 #endif
