@@ -17,10 +17,10 @@ typedef struct token
 	{
 		token_string,
 		token_pipe,
-		token_red_input,
-		token_red_output,
-		token_app_input,
-		token_app_output
+		token_red_input, //<
+		token_red_output, //>
+		token_app_input, //<<
+		token_app_error //>>
 	}	type;
 	char	*str;
 }	t_token;
@@ -28,7 +28,7 @@ typedef struct token
 void   	ft_lexxx(char *input);
 void	ft_token(int type, char *str);
 char	*ft_conv_to_str(char c);
-void	ft_skip_spaces(t_lexer *lexer);
+void	ft_skip_space(t_lexer *lexer);
 void	ft_print(t_token token);
 int		ft_check_sym(char c, t_lexer *lexer);
 char	*ft_get_str(t_lexer *lexer);
@@ -36,5 +36,10 @@ void    ft_searche(t_lexer *lexer);
 void	ft_syntax_error(void);
 void	ft_quotes_skip(t_lexer *lexer);
 void    ft_redirection(t_lexer *lexer);
+void	ft_red_output(t_lexer *lexer);
+void	ft_app_error(t_lexer *lexer);
+void	ft_red_input(t_lexer *lexer);
+void	ft_app_input(t_lexer *lexer);
+void	ft_ignore_spaces(t_lexer *lexer);
 
 #endif

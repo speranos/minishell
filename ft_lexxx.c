@@ -10,7 +10,7 @@ void    ft_lexxx(char *input)
 	while(lexer.input[lexer.i])
 	{
 		if(lexer.c <= 32)
-			ft_skip_spaces(&lexer);
+			ft_skip_space(&lexer);
 		else
 			ft_searche(&lexer);
 	}

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	ft_skip_spaces(t_lexer *lexer)
+void	ft_skip_space(t_lexer *lexer)
 {
 	if(lexer->c <= 32)
 	{
