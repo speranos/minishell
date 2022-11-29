@@ -62,7 +62,8 @@ void    ft_lexxx(char *input)
 		node = ft_searche(&lexer);
 		ft_add_back(&link, node);
 	}
-	ft_print(link);
+	if(lexer.quotes != 0)
+		return;
 	ft_syntax_check(link);
 }
 

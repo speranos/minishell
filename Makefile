@@ -2,7 +2,7 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -lreadline -fsanitize=address
-SRCS = lexer/*.c *.c
+SRCS = lexer/*.c syntax_check/*.c *.c
 all : $(NAME)
 
 $(NAME) : $(SRCS)

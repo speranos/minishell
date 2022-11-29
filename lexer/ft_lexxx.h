@@ -9,6 +9,7 @@ typedef struct lexer
 	char    c;
 	int		len;
 	char	*input;
+	int		quotes;
 
 }   t_lexer;
 

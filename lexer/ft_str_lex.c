@@ -18,6 +18,7 @@ char	*ft_get_str(t_lexer *lexer)
 
 	i = 0;
 	lexer->len = lexer->i;
+	lexer->quotes = 0;
 	ft_get_len(lexer);
 	i = lexer->len - lexer->i;
 	lexer->len = 0;
@@ -54,7 +55,10 @@ void	ft_quotes_skip(t_lexer *lexer)
 			lexer->len++;
 		}
 		if (lexer->input[lexer->len] == '\0')
-			ft_syntax_error();
+			{
+				ft_syntax_error();
+				lexer->quotes++;
+			}
 	}
 	else if(lexer->c == 39)
 		ft_single_quotes(lexer);
@@ -70,5 +74,8 @@ void	ft_single_quotes(t_lexer *lexer)
 		lexer->len++;
 	}
 	if (lexer->input[lexer->len] == '\0')
-		ft_syntax_error();
+		{
+			ft_syntax_error();
+			lexer->quotes++;
+		}
 }
