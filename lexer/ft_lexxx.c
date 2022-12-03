@@ -29,7 +29,7 @@
 
 void	ft_add_back(t_token **link, t_token *node)
 {
-	t_token *head;
+	t_token	*head;
 
 	head = *link;
 	if(*link == NULL)
@@ -64,7 +64,9 @@ void    ft_lexxx(char *input)
 	}
 	if(lexer.quotes != 0)
 		return;
-	ft_syntax_check(link);
+	if(ft_syntax_check(link) == 1)
+		return;
+	ft_rev(link);
 }
 
 t_token	*ft_searche(t_lexer *lexer)

@@ -34,7 +34,6 @@ typedef struct token
 		token_app_error //>>
 	}	type;
 	char	*str;
-	int	count;
 	struct token *next;
 }	t_token;
 
@@ -55,6 +54,5 @@ t_token	*ft_red_input(t_lexer *lexer);
 t_token	*ft_app_input(t_lexer *lexer);
 void	ft_ignore_spaces(t_lexer *lexer);
 void	ft_single_quotes(t_lexer *lexer);
-void	ft_syntax_check(t_token *link);
 
 #endif

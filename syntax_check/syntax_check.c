@@ -29,7 +29,7 @@ int	ft_after_red(t_token *link)
 	return(0);
 }
 
-void	ft_syntax_check(t_token *link)
+int	ft_syntax_check(t_token *link)
 {
 	t_token	*head;
 
@@ -37,17 +37,18 @@ void	ft_syntax_check(t_token *link)
 	if(link->type == 1 || link->type == 4)
 	{
 		ft_syntax_error();
-		return;
+		return(1);
 	}
 	while(link)
 	{
 		if(link->type == 1 && ft_after_pipe(link) == 1)
-			return;
+			return(1);
 		else if(link->type >= 2 && ft_after_red(link) == 1)
-			return;
+			return(1);
 		link = link->next;
 	}
 	ft_print(head);
+	return(0);
 }
 
 void	ft_print(t_token *link)
