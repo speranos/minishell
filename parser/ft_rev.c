@@ -20,9 +20,8 @@ void	ft_init_data(t_parser **tmp, t_token **link)
 
 	len = ft_arg_len(*link);
 	*tmp = malloc(sizeof(t_parser));
-	(*tmp)->redi = malloc(sizeof(t_redi));
+	(*tmp)->redi = NULL;
 	(*tmp)->args = malloc(sizeof(char *) * (len + 1));
-	(*tmp)->redi->fname = 0;
 }
 
 t_parser	*ft_oper(t_parser **data, t_token **link)
@@ -81,20 +80,47 @@ void	ft_rev(t_token *link)
 	ft_oper(&data, &link);
 	while (data != NULL)
 	{
-		printf("HSPPHGPHSHG\n");
 		while (data->args[i] != NULL)
 		{
-			printf("data_filename ==>>>>>>>>> %s\n", data->redi->fname);
-			printf("data->args ========== %s\n", data->args[i]);
+			printf("args ==========+++++ %s\n", data->args[i]);
 			i++;
+		}
+		while (data->redi != NULL)
+		{
+			printf("filename ==>>>>>>>>> %s\n", data->redi->fname);
+			data->redi = data->redi->next;
 		}
 		i = 0;
 		data = data->next;
 	}
 }
 
+void	ft_redi_add_link(t_parser **tmp, t_redi *red_tmp)
+{
+	t_redi	*head;
+
+	head = (*tmp)->redi;
+	if((*tmp)->redi == NULL)
+	{
+		(*tmp)->redi = red_tmp;
+		return;
+	}
+	else
+	{
+		while((*tmp)->redi->next)
+			(*tmp)->redi = (*tmp)->redi->next;
+		(*tmp)->redi->next = red_tmp;
+		(*tmp)->redi = head;
+	}
+}
+
 void	ft_add_red(t_parser **tmp, t_token *link)
 {
-	(*tmp)->redi->type = link->type - 2;
-	(*tmp)->redi->fname = link->str;
+	t_redi	*red_tmp;
+
+	red_tmp = malloc(sizeof(t_redi));
+	red_tmp->type = link->type - 2;
+	red_tmp->fname = link->str;
+	red_tmp->next = NULL;
+	ft_redi_add_link(tmp, red_tmp);
 }

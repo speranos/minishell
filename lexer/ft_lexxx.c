@@ -66,6 +66,7 @@ void    ft_lexxx(char *input)
 		return;
 	if(ft_syntax_check(link) == 1)
 		return;
+	ft_remove_quotes(&link);
 	ft_rev(link);
 }
 

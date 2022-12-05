@@ -11,6 +11,7 @@ typedef struct redi
 		app_error //>>
 	}	type;
 	char	*fname;
+	struct redi *next;
 }	t_redi;
 
 typedef struct parser
@@ -24,6 +25,9 @@ void	ft_rev(t_token *link);
 void	ft_add_to_link(t_parser **data, t_token **link, t_parser *tmp);
 void	ft_add_red(t_parser **tmp, t_token *link);
 void	ft_add_str(t_parser **tmp, t_token *link);
+void	ft_init_data(t_parser **tmp, t_token **link);
+int		ft_arg_len(t_token *link);
+void	ft_remove_quotes(t_token **link);
 
 
 #endif
