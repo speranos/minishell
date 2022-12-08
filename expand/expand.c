@@ -81,9 +81,36 @@ void	ft_link_update(t_token *link, char *str, int index, int def)
 	str_len = ft_len(str);
 	len = (link_len - (def + 1)) + str_len;
 	fin_str = malloc(sizeof(char) * len + 1);
-	link->len = 0;
+	// link->len = 0;
+	// str_len = 0;
+	// link_len = 0;
+	// while(link->str[link_len])
+	// {
+	// 	if(link_len == index)
+	// 	{
+	// 		if(str != NULL)
+	// 		{	
+	// 			while(str[str_len] != '\0')
+	// 				fin_str[link->len++] = str[str_len++];
+	// 		}
+	// 		link_len += def + 1;
+	// 	}
+	// 	else
+	// 		fin_str[link->len++] = link->str[link_len++];
+	// }
+	ft_to_fin_str(link, str, fin_str, index, def);
+	fin_str[link->len] = '\0';
+	link->str = fin_str;
+}
+
+void	ft_to_fin_str(t_token *link, char *str, char *fin_str, int index, int def)
+{
+	int	str_len;
+	int	link_len;
+
 	str_len = 0;
 	link_len = 0;
+	link->len = 0;
 	while(link->str[link_len])
 	{
 		if(link_len == index)
@@ -98,8 +125,6 @@ void	ft_link_update(t_token *link, char *str, int index, int def)
 		else
 			fin_str[link->len++] = link->str[link_len++];
 	}
-	fin_str[link->len] = '\0';
-	link->str = fin_str;
 }
 
 int	ft_len(char *str)

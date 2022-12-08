@@ -9,5 +9,6 @@ int		ft_alpnum(char c);
 void	ft_update_ex(t_token *link, int tmp);
 int		ft_len(char *str);
 void	ft_link_update(t_token *link, char *str, int index, int def);
+void	ft_to_fin_str(t_token *link, char *str, char *fin_str, int index, int def);
 
 #endif
