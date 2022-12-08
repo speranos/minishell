@@ -67,16 +67,12 @@ void	ft_skip(t_token *link)
 	link->str = str;
 }
 
-void	ft_remove_quotes(t_token **link)
+void	ft_remove_quotes(t_token *link)
 {
-	t_token *head;
-
-	head = *link;
-	while (*link)
+	while (link)
 	{
-		if((*link)->type == 0 || (*link)->type >= 2)
-			ft_skip(*link);
-		*link = (*link)->next;
+		if(link->type == 0 || link->type >= 2)
+			ft_skip(link);
+		link = link->next;
 	}
-	*link = head;
 }
