@@ -12,7 +12,6 @@ void	ft_expand(t_token *link)
 
 void	ft_check(t_token *link)
 {
-	// printf("hoooooodhod\n");
 	link->i = 0;
 	while (link->str[link->i])
 	{
@@ -32,29 +31,87 @@ void	ft_single(t_token *link)
 	c = link->str[link->i];
 	link->i++;
 	while (link->str[link->i] && link->str[link->i] != c)
-		{
-			printf("c =>>>>>>>>>>> %c\n", link->str[link->i]);
-			link->i++;
-		}
-	printf("sefger\n");
-	
+		link->i++;	
 }
 
 void	ft_dollar(t_token *link)
 {
 	int		tmp;
 	char	c;
-	char	*str;
 
-	tmp = link->i++;
-	c = link->str[link->i];
+	tmp = 0;
+	c = link->str[link->i + 1];
 	if(ft_alpnum(c) == 1)
 		return;
+	tmp = link->i++;
 	while (link->str[link->i] && ft_alpnum(c) != 1)
+			c = link->str[++link->i];
+	link->len = link->i - tmp;
+	ft_update_ex(link, tmp);
+	link->i = -1;
+}
+
+void	ft_update_ex(t_token *link, int tmp)
+{
+	char	*str;
+	int		i;
+	int		index;
+
+	index = tmp;
+	i = 0;
+	str = malloc(sizeof(char) * link->len);
+	tmp++;
+	while(tmp < link->i)
 	{
-		link->i++;
+		str[i++] = link->str[tmp++]; 
 	}
-	
+	str[i] = '\0';
+	str = getenv(str);
+	ft_link_update(link, str, index, i);	
+}
+
+void	ft_link_update(t_token *link, char *str, int index, int def)
+{
+	int	link_len;
+	int	str_len;
+	int	len;
+	char	*fin_str;
+
+	link_len = ft_len(link->str);
+	str_len = ft_len(str);
+	len = (link_len - (def + 1)) + str_len;
+	fin_str = malloc(sizeof(char) * len + 1);
+	link->len = 0;
+	str_len = 0;
+	link_len = 0;
+	while(link->str[link_len])
+	{
+		if(link_len == index)
+		{
+			if(str != NULL)
+			{	
+				while(str[str_len] != '\0')
+					fin_str[link->len++] = str[str_len++];
+			}
+			link_len += def + 1;
+		}
+		else
+			fin_str[link->len++] = link->str[link_len++];
+	}
+	fin_str[link->len] = '\0';
+	link->str = fin_str;
+}
+
+int	ft_len(char *str)
+{
+	int	i;
+
+	i = 0;
+	if(str == NULL)
+		return(0);
+	while (str[i])
+		i++;
+	return(i);
 }
 
 int	ft_alpnum(char c)

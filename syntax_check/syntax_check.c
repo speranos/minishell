@@ -31,9 +31,9 @@ int	ft_after_red(t_token *link)
 
 int	ft_syntax_check(t_token *link)
 {
-	t_token	*head;
+	//t_token	*head;
 
-	head = link;
+	//head = link;
 	if(link->type == 1 || link->type == 4)
 	{
 		ft_syntax_error();
@@ -47,7 +47,7 @@ int	ft_syntax_check(t_token *link)
 			return(1);
 		link = link->next;
 	}
-	ft_print(head);
+	//ft_print(head);
 	return(0);
 }
 
