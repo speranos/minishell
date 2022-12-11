@@ -26,6 +26,18 @@
 // 	(*parser)->next = tmp;
 // 	*parser = tmp1;
 // }
+void	ft_free_link(t_token *link)
+{
+	t_token	*node;
+
+	while (link != NULL)
+	{
+		node = link;
+		free(link->str);
+		free(node);
+		link = link->next;
+	}
+}
 
 void	ft_add_back(t_token **link, t_token *node)
 {
@@ -55,20 +67,22 @@ void    ft_lexxx(char *input)
 	link = NULL;
 	lexer.i = 0;
 	lexer.input = input;
+	lexer.quotes = 0;
 	lexer.c = lexer.input[lexer.i];
-	node = malloc(sizeof(t_token));
 	while(lexer.input[lexer.i])
 	{
 		node = ft_searche(&lexer);
 		ft_add_back(&link, node);
 	}
-	if(lexer.quotes != 0)
+	if(lexer.quotes != 0 || ft_syntax_check(link) == 1)
+	{
+		ft_free_link(link);
 		return;
-	if(ft_syntax_check(link) == 1)
-		return;
+	}
 	ft_expand(link);
 	ft_remove_quotes(link);
 	ft_rev(link);
+	ft_free_link(link);
 }
 
 t_token	*ft_searche(t_lexer *lexer)

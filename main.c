@@ -28,5 +28,7 @@ int main(int ac, char **av, char **env)
 			add_history(input);
 			ft_lexxx(input);
 		}
+		free(input);
 	}
-} 
+}
+

@@ -64,6 +64,7 @@ void	ft_skip(t_token *link)
 			str[link->len++] = link->str[link->i++];
 	}
 	str[link->len] = '\0';
+	free(link->str);
 	link->str = str;
 }
 

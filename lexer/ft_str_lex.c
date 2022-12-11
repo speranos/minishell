@@ -2,7 +2,7 @@
 
 void	ft_get_len(t_lexer *lexer)
 {
-		while (lexer->input[lexer->len])
+	while (lexer->input[lexer->len])
 	{
 		lexer->c = lexer->input[lexer->len];
 		if (ft_check_sym(lexer->c, lexer) == 1)
@@ -23,6 +23,7 @@ char	*ft_get_str(t_lexer *lexer)
 	i = lexer->len - lexer->i;
 	lexer->len = 0;
 	ret = malloc(sizeof(char) * i + 1);
+	printf("i for str >>>>>>>>>>>>>>> %d\n", i);
 	while (lexer->len < i)
 		ret[lexer->len++] = lexer->input[lexer->i++];
 	ret[lexer->len] = '\0';

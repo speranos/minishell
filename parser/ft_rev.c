@@ -22,6 +22,7 @@ void	ft_init_data(t_parser **tmp, t_token **link)
 	*tmp = malloc(sizeof(t_parser));
 	(*tmp)->redi = NULL;
 	(*tmp)->args = malloc(sizeof(char *) * (len + 1));
+	printf("len >>>>>>>>>>>>>>>> %d\n", len);
 }
 
 t_parser	*ft_oper(t_parser **data, t_token **link)
@@ -34,7 +35,7 @@ t_parser	*ft_oper(t_parser **data, t_token **link)
 	while (*link && (*link)->type != 1)
 	{
 		if((*link)->type == 0)
-			tmp->args[len++] = (*link)->str;
+				tmp->args[len++] = (*link)->str;
 		else if((*link)->type >= 2)
 			ft_add_red(&tmp, *link);
 		*link = (*link)->next;

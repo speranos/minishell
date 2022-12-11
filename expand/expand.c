@@ -59,6 +59,7 @@ void	ft_dollar(t_token *link)
 void	ft_update_ex(t_token *link, int tmp)
 {
 	char	*str;
+	char	*get_str;
 	int		i;
 	int		index;
 
@@ -68,11 +69,12 @@ void	ft_update_ex(t_token *link, int tmp)
 	tmp++;
 	while(tmp < link->i)
 	{
-		str[i++] = link->str[tmp++]; 
+		str[i++] = link->str[tmp++];
 	}
 	str[i] = '\0';
-	str = getenv(str);
-	ft_link_update(link, str, index, i);	
+	get_str = getenv(str);
+	ft_link_update(link, get_str, index, i);	
+	free(str);
 }
 
 void	ft_link_update(t_token *link, char *str, int index, int def)
@@ -88,6 +90,7 @@ void	ft_link_update(t_token *link, char *str, int index, int def)
 	fin_str = malloc(sizeof(char) * len + 1);
 	ft_to_fin_str(link, str, fin_str, index, def);
 	fin_str[link->len] = '\0';
+	free(link->str);
 	link->str = fin_str;
 }
 
