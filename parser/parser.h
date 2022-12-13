@@ -28,6 +28,9 @@ void	ft_add_str(t_parser **tmp, t_token *link);
 void	ft_init_data(t_parser **tmp, t_token **link);
 int		ft_arg_len(t_token *link);
 void	ft_remove_quotes(t_token *link);
+void	ft_free_redi(t_redi *redi);
+void	ft_free_parser(t_parser *data);
+void	ft_print(t_parser *data);
 
 
 #endif

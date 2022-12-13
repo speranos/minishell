@@ -46,13 +46,3 @@ int	ft_syntax_check(t_token *link)
 	}
 	return(0);
 }
-
-void	ft_print(t_token *link)
-{
-    	while(link != NULL)
-	{
-		printf("token(%d, %s)\n", link->type, link->str);
-		link = link->next;
-    }
-	
-}

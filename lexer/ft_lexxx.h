@@ -43,7 +43,6 @@ void   	ft_lexxx(char *input);
 t_token	*ft_token(int type, char *str);
 char	*ft_conv_to_str(char c);
 void	ft_skip_space(t_lexer *lexer);
-void	ft_print(t_token *token);
 int		ft_check_sym(char c, t_lexer *lexer);
 char	*ft_get_str(t_lexer *lexer);
 t_token	*ft_searche(t_lexer *lexer);

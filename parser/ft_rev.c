@@ -22,7 +22,6 @@ void	ft_init_data(t_parser **tmp, t_token **link)
 	*tmp = malloc(sizeof(t_parser));
 	(*tmp)->redi = NULL;
 	(*tmp)->args = malloc(sizeof(char *) * (len + 1));
-	printf("len >>>>>>>>>>>>>>>> %d\n", len);
 }
 
 t_parser	*ft_oper(t_parser **data, t_token **link)
@@ -75,25 +74,11 @@ void	ft_rev(t_token *link)
 {
 	t_parser	*data;
 
-	int i = 0;
-
 	data = NULL;
 	ft_oper(&data, &link);
-	while (data != NULL)
-	{
-		while (data->args[i] != NULL)
-		{
-			printf("args ==========+++++ %s\n", data->args[i]);
-			i++;
-		}
-		while (data->redi != NULL)
-		{
-			printf("filename ==>>>>>>>>> %s\n", data->redi->fname);
-			data->redi = data->redi->next;
-		}
-		i = 0;
-		data = data->next;
-	}
+	ft_print(data);
+	ft_free_redi(data->redi);
+	ft_free_parser(data);
 }
 
 void	ft_redi_add_link(t_parser **tmp, t_redi *red_tmp)
@@ -124,4 +109,52 @@ void	ft_add_red(t_parser **tmp, t_token *link)
 	red_tmp->fname = link->str;
 	red_tmp->next = NULL;
 	ft_redi_add_link(tmp, red_tmp);
+}
+
+void	ft_free_parser(t_parser *data)
+{
+	t_parser	*tmp;
+
+	while(data != NULL)
+	{
+		tmp = data;
+		free(tmp->args);
+		free(tmp);
+		data = data->next;
+	}
+}
+
+void	ft_free_redi(t_redi *redi)
+{
+	t_redi	*tmp;
+
+	while(redi != NULL)
+	{
+		tmp = redi;
+		free(tmp->fname);
+		free(tmp);
+		redi = redi->next;
+	}
+}
+
+void	ft_print(t_parser *data)
+{
+	int	i;
+
+	i = 0;
+	while (data != NULL)
+	{
+		while (data->args[i] != NULL)
+		{
+			printf("args ==========+++++ %s\n", data->args[i]);
+			i++;
+		}
+		while (data->redi != NULL)
+		{
+			printf("filename ==>>>>>>>>> %s\n", data->redi->fname);
+			data->redi = data->redi->next;
+		}
+		i = 0;
+		data = data->next;
+	}
 }
