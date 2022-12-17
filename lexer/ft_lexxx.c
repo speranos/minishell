@@ -83,8 +83,6 @@ void    ft_lexxx(char *input)
 	ft_remove_quotes(link);
 	ft_rev(link);
 	ft_free_link(link);
-	// ft_free_parser();
-	// ft_free_redi();
 }
 
 t_token	*ft_searche(t_lexer *lexer)

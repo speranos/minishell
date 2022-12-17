@@ -37,6 +37,7 @@ typedef struct token
 	struct token *next;
 	int		i;
 	int		len;
+	int		index;
 }	t_token;
 
 void   	ft_lexxx(char *input);
