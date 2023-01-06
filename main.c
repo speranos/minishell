@@ -17,7 +17,11 @@ void    ft_intro(void)
 
 int main(int ac, char **av, char **env)
 {
-	char    *input;
+	char    	*input;
+	// t_parser	*daaaaa;
+	t_token		*link = NULL;
+
+	ft_init(link);
 	ft_args_check(ac, av, env);
 	ft_intro();
 	while(1)
@@ -26,9 +30,14 @@ int main(int ac, char **av, char **env)
 		if(*input != '\0')
 		{
 			add_history(input);
-			ft_lexxx(input);
+			ft_lexxx(input, link);
 		}
 		free(input);
 	}
 }
 
+void	ft_init(t_token *link)
+{
+	link = NULL;
+	exit_error = 45678978;
+}

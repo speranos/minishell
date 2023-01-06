@@ -77,15 +77,6 @@ void	ft_rev(t_token *link)
 	data = NULL;
 	ft_oper(&data, &link);
 	ft_print(data);
-	//t_redi	*tmp;
-	// while(data->redi != NULL)
-	// {
-	// 	tmp = data->redi;
-	// 	free(tmp->fname);
-	// 	free(tmp);
-	// 	data->redi = data->redi->next;
-	// }
-	//ft_free_redi(data->redi);
 	ft_free_parser(data);
 }
 

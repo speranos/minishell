@@ -58,14 +58,14 @@ void	ft_add_back(t_token **link, t_token *node)
 	}
 }
 
-void    ft_lexxx(char *input)
+void    ft_lexxx(char *input, t_token *link)
 {
 	t_lexer lexer;
 	t_token *node;
-	t_token *link;
+	//t_token *link;
 
-	link = NULL;
-	exit_error = 45678978; //init 0;
+	//link = NULL;
+	//exit_error = 45678978; //init 0;
 	lexer.i = 0;
 	lexer.input = input;
 	lexer.quotes = 0;

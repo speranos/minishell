@@ -41,7 +41,7 @@ typedef struct token
 }	t_token;
 
 int		exit_error;
-void   	ft_lexxx(char *input);
+void   	ft_lexxx(char *input, t_token *link);
 t_token	*ft_token(int type, char *str);
 char	*ft_conv_to_str(char c);
 void	ft_skip_space(t_lexer *lexer);
@@ -57,5 +57,6 @@ t_token	*ft_red_input(t_lexer *lexer);
 t_token	*ft_app_input(t_lexer *lexer);
 void	ft_ignore_spaces(t_lexer *lexer);
 void	ft_single_quotes(t_lexer *lexer);
+void	ft_init(t_token *link);
 
 #endif
