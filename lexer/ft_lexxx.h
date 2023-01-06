@@ -40,6 +40,7 @@ typedef struct token
 	int		index;
 }	t_token;
 
+int		exit_error;
 void   	ft_lexxx(char *input);
 t_token	*ft_token(int type, char *str);
 char	*ft_conv_to_str(char c);

@@ -13,5 +13,8 @@ void	ft_to_fin_str(t_token *link, char *str, char *fin_str, int index, int def);
 int		ft_alpha(t_token *link);
 void	ft_rm_num(t_token *link);
 void	ft_rm_dollar(t_token *link);
+void	ft_quest_mark(t_token *link);
+char	*itoa(int num);
+int	    ft_num_len(int num);
 
 #endif

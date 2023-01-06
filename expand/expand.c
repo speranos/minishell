@@ -49,6 +49,7 @@ void	ft_dollar(t_token *link)
 	while (link->str[link->i] && ft_alphanum(c) != 1)
 			c = link->str[++link->i];
 	link->len = link->i - tmp;
+	// printf("link->len =========== %d\n", link->len);
 	ft_update_ex(link, tmp);
 	link->i = -1;
 }
@@ -148,6 +149,8 @@ int	ft_alpha(t_token *link)
 		ft_rm_num(link);
 	else if(c == 34 || c == 39)
 		ft_rm_dollar(link);
+	else if(c == '?')
+		ft_quest_mark(link);
 	else if(c >= 65 && c <= 90)
 		return(0);
 	else if (c >= 97 && c <= 122)
@@ -174,4 +177,48 @@ void	ft_rm_dollar(t_token *link)
 	tmp = link->i++;
 	link->len = 2;
 	ft_update_ex(link, tmp);
+}
+
+void	ft_quest_mark(t_token *link)
+{
+	char	*str;
+	int		index;
+	int		len;
+
+	str = itoa(exit_error);
+	index = link->i;
+	len = link->i + 1;
+	ft_link_update(link, str, index, len);
+	free(str);
+}
+
+char	*itoa(int num)
+{
+	int	len;
+	char *str;
+
+	len = ft_num_len(num);
+	str = malloc(sizeof(char) * len + 1);
+	str[len--] = '\0';
+	while (len >= 0)
+	{
+		str[len--] = (num % 10) + 48;
+		num /= 10;
+	}
+	return(str);
+}
+
+int	ft_num_len(int num)
+{
+	int	i;
+
+	i = 0;
+	if(num == 0)
+		return(1);
+	while(num > 0)
+	{
+		num /= 10;
+		i++;
+	}
+	return(i);
 }

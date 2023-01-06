@@ -65,6 +65,7 @@ void    ft_lexxx(char *input)
 	t_token *link;
 
 	link = NULL;
+	exit_error = 45678978; //init 0;
 	lexer.i = 0;
 	lexer.input = input;
 	lexer.quotes = 0;
