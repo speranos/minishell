@@ -34,16 +34,18 @@ void	ft_oper(t_parser **data, t_token **link)
 	while (*link && (*link)->type != 1)
 	{
 		if((*link)->type == 0)
-				tmp->args[len++] = (*link)->str;
+			tmp->args[len++] = (*link)->str;
 		else if((*link)->type >= 2)
 			ft_add_red(&tmp, *link);
 		*link = (*link)->next;
 	}
 	tmp->args[len] = 0;
 	tmp->next = NULL;
+	while (1);
 	ft_add_to_link(data, link, tmp);
 	if(*link != NULL)
 	{
+		free ((*link)->str);
 		*link = (*link)->next;
 		ft_oper(data, link);
 	}
@@ -116,22 +118,27 @@ void	ft_free_parser(t_parser *data)
 	t_parser	*tmp;
 	t_redi		*redi_tmp;
 	t_redi		*redi;
+	int i;
 
 	redi = data->redi;
 	while(data != NULL)
 	{
+		printf ("one\n");
 		redi = data->redi;
 		while(redi != NULL)
 		{
 			redi_tmp = redi;
-			free(redi_tmp);
+			free (redi_tmp->fname);
 			redi = redi->next;
+			free(redi_tmp);
 		}
 		tmp = data;
+		i = 0;
+		while (tmp->args[i])
+			free (tmp->args[i++]);
 		free(tmp->args);
-		//free(tmp->envv);
-		free(tmp);
 		data = data->next;
+		free(tmp);
 	}
 }
 

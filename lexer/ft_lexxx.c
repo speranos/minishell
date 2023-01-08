@@ -59,6 +59,7 @@ t_parser	*ft_lexxx(char *input)
 	ft_remove_quotes(link);
 	ft_oper(&data, &link);
 	ft_free_link(link);
+	free (node);
 	return(data);
 }
 
