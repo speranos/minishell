@@ -18,26 +18,31 @@ void    ft_intro(void)
 int main(int ac, char **av, char **env)
 {
 	char    	*input;
-	// t_parser	*daaaaa;
-	t_token		*link = NULL;
+	t_parser	*data;
 
-	ft_init(link);
 	ft_args_check(ac, av, env);
 	ft_intro();
+	//initial();
 	while(1)
 	{
 		input = readline("ach_tama>$ ");
 		if(*input != '\0')
 		{
 			add_history(input);
-			ft_lexxx(input, link);
+			data = ft_lexxx(input);
+			if(data != NULL)
+			{
+				ft_print(data);
+			}
+			//exec();
+			ft_free_parser(data);	
 		}
 		free(input);
 	}
 }
 
-void	ft_init(t_token *link)
-{
-	link = NULL;
-	exit_error = 45678978;
-}
+// void	ft_init(t_token *link)
+// {
+// 	link = NULL;
+// 	exit_error = 45678978;
+// }

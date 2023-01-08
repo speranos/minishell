@@ -1,31 +1,5 @@
 #include "../minishell.h"
 
-// t_parser	*create_parser(char *str, int type)
-// {
-// 	t_parser *parser;
-
-// 	parser = malloc(sizeof(t_parser));
-// 	parser->str = str;
-// 	parser->type = type;
-// 	parser->next = NULL;
-// 	return (parser);
-// }
-
-// void	ft_add_back(t_parser **parser, char *str, int type)
-// {
-// 	t_parser *tmp1 = *parser;
-// 	t_parser *tmp = create_parser(str, type);
-
-// 	if (*parser == NULL)
-// 	{
-// 		*parser = tmp;
-// 		return ;
-// 	}
-// 	while ((*parser)->next)
-// 		*parser = (*parser)->next;
-// 	(*parser)->next = tmp;
-// 	*parser = tmp1;
-// }
 void	ft_free_link(t_token *link)
 {
 	t_token	*node;
@@ -34,8 +8,8 @@ void	ft_free_link(t_token *link)
 	{
 		node = link;
 		free(link->str);
-		free(node);
 		link = link->next;
+		free(node);
 	}
 }
 
@@ -58,14 +32,15 @@ void	ft_add_back(t_token **link, t_token *node)
 	}
 }
 
-void    ft_lexxx(char *input, t_token *link)
+t_parser	*ft_lexxx(char *input)
 {
 	t_lexer lexer;
 	t_token *node;
-	//t_token *link;
+	t_token *link;
+	t_parser	*data = NULL;
 
-	//link = NULL;
-	//exit_error = 45678978; //init 0;
+	link = NULL;
+	exit_error = 45678978; //init 0;
 	lexer.i = 0;
 	lexer.input = input;
 	lexer.quotes = 0;
@@ -78,12 +53,13 @@ void    ft_lexxx(char *input, t_token *link)
 	if(lexer.quotes != 0 || ft_syntax_check(link) == 1)
 	{
 		ft_free_link(link);
-		return;
+		return(NULL);
 	}
 	ft_expand(link);
 	ft_remove_quotes(link);
-	ft_rev(link);
+	ft_oper(&data, &link);
 	ft_free_link(link);
+	return(data);
 }
 
 t_token	*ft_searche(t_lexer *lexer)

@@ -40,8 +40,28 @@ typedef struct token
 	int		index;
 }	t_token;
 
+typedef struct redi
+{
+	enum
+	{
+		red_input, //<
+		red_output, //>
+		app_input, //<<
+		app_error //>>
+	}	type;
+	char	*fname;
+	struct redi *next;
+}	t_redi;
+
+typedef struct parser
+{
+	char	**args;
+	t_redi	*redi;
+	struct parser *next;
+}	t_parser;
+
 int		exit_error;
-void   	ft_lexxx(char *input, t_token *link);
+t_parser	*ft_lexxx(char *input);
 t_token	*ft_token(int type, char *str);
 char	*ft_conv_to_str(char c);
 void	ft_skip_space(t_lexer *lexer);

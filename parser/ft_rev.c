@@ -24,7 +24,7 @@ void	ft_init_data(t_parser **tmp, t_token **link)
 	(*tmp)->args = malloc(sizeof(char *) * (len + 1));
 }
 
-t_parser	*ft_oper(t_parser **data, t_token **link)
+void	ft_oper(t_parser **data, t_token **link)
 {
 	t_parser	*tmp;
 	int	len;
@@ -47,7 +47,6 @@ t_parser	*ft_oper(t_parser **data, t_token **link)
 		*link = (*link)->next;
 		ft_oper(data, link);
 	}
-	return (tmp);
 }
 
 void	ft_add_to_link(t_parser **data, t_token **link, t_parser *tmp)
@@ -70,15 +69,17 @@ void	ft_add_to_link(t_parser **data, t_token **link, t_parser *tmp)
 	}
 }
 
-void	ft_rev(t_token *link)
-{
-	t_parser	*data;
+// void	ft_rev(t_token *link, char **env)
+// {
+// 	t_parser	*data;
 
-	data = NULL;
-	ft_oper(&data, &link);
-	ft_print(data);
-	ft_free_parser(data);
-}
+// 	data = NULL;
+// 	ft_oper(&data, &link);
+// 	printf("data->str ================= %s\n", data->args[0]);
+// 	(void)env;
+// 	ft_print(data);
+// 	ft_free_parser(data);
+// }
 
 void	ft_redi_add_link(t_parser **tmp, t_redi *red_tmp)
 {
@@ -128,11 +129,56 @@ void	ft_free_parser(t_parser *data)
 		}
 		tmp = data;
 		free(tmp->args);
+		//free(tmp->envv);
 		free(tmp);
 		data = data->next;
 	}
 }
 
+// int	ft_new_line_len(char *str)
+// {
+// 	int	i = 0;
+// 	while(str[i])
+// 		i++;
+// 	printf("i ================= %d\n", i);
+// 	return(i);
+// }
+
+// void	ft_add_env(t_parser *data, char **env)
+// {
+// 	// ft_len()
+// 	int	i;
+// 	int	a = 0 ;
+
+// 	i = 0;
+// 	while (env[i] != NULL)
+// 		i++;
+// 	data->envv = malloc(sizeof(char*) * i + 1);
+// 	i = 0;
+
+// 	while (env[i])
+// 	{
+// 		data->envv[i] = malloc(sizeof(char) * (ft_len(env[i]) + 1));
+// 		while(env[i][a])
+// 		{
+// 			data->envv[i][a] = env[i][a];
+// 			a++;
+// 		}
+// 		data->envv[i][a] = '\0';
+// 		a = 0;
+// 		i++;
+// 	}
+// 	data->envv[i] = 0;
+// 	printf("i ============== %d\n", i);
+// 	i = 0;
+// 	while(data->envv[i])
+// 		printf("data->envv ===================== %s\n", data->envv[i++]);
+// 	printf("\n\n\n");
+// 	i = 0;
+// 	while(env[i])
+// 		printf("env ===================== %s\n", env[i++]);
+// 	//free(data->envv[i]);
+// }
 // void	ft_free_redi(t_redi *redi)
 // {
 // 	t_redi	*tmp;

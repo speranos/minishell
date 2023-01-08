@@ -33,7 +33,8 @@ void	ft_single(t_token *link)
 	c = link->str[link->i];
 	link->i++;
 	while (link->str[link->i] && link->str[link->i] != c)
-		link->i++;	
+		link->i++;
+	link->i--;
 }
 
 void	ft_dollar(t_token *link)
@@ -49,7 +50,6 @@ void	ft_dollar(t_token *link)
 	while (link->str[link->i] && ft_alphanum(c) != 1)
 			c = link->str[++link->i];
 	link->len = link->i - tmp;
-	// printf("link->len =========== %d\n", link->len);
 	ft_update_ex(link, tmp);
 	link->i = -1;
 }
