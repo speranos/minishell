@@ -27,28 +27,32 @@ void	ft_init_data(t_parser **tmp, t_token **link)
 void	ft_oper(t_parser **data, t_token **link)
 {
 	t_parser	*tmp;
+	t_token		*link_tmp;
 	int	len;
 
 	len = 0;
 	ft_init_data(&tmp, link);
 	while (*link && (*link)->type != 1)
 	{
+		link_tmp = *link;
 		if((*link)->type == 0)
 			tmp->args[len++] = (*link)->str;
 		else if((*link)->type >= 2)
 			ft_add_red(&tmp, *link);
 		*link = (*link)->next;
+		free(link_tmp);
 	}
 	tmp->args[len] = 0;
 	tmp->next = NULL;
-	while (1);
 	ft_add_to_link(data, link, tmp);
+	while(1);
 	if(*link != NULL)
 	{
 		free ((*link)->str);
-		*link = (*link)->next;
 		ft_oper(data, link);
+		*link = (*link)->next;
 	}
+	while (1);
 }
 
 void	ft_add_to_link(t_parser **data, t_token **link, t_parser *tmp)
