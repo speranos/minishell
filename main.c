@@ -33,16 +33,10 @@ int main(int ac, char **av, char **env)
 			if(data != NULL)
 			{
 				ft_print(data);
+				ft_free_parser(data);	
 			}
 			//exec();
-			ft_free_parser(data);	
 		}
 		free(input);
 	}
 }
-
-// void	ft_init(t_token *link)
-// {
-// 	link = NULL;
-// 	exit_error = 45678978;
-// }

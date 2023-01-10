@@ -20,7 +20,7 @@ void	ft_check(t_token *link)
 			ft_dollar(link);
 		else if(link->str[link->i] == 34)
 			link->index++;
-		else if(link->str[link->i] == 39 && link->index == 0)
+		else if(link->str[link->i] == 39 && (link->index == 0 || link->index % 2 == 0))
 			ft_single(link);
 		link->i++;
 	}
@@ -31,9 +31,14 @@ void	ft_single(t_token *link)
 	char	c;
 
 	c = link->str[link->i];
+	//printf("c ============= %c\n", c);
 	link->i++;
 	while (link->str[link->i] && link->str[link->i] != c)
+	{
+		if(link->str[link->i] == 34)
+			link->index++;
 		link->i++;
+	}
 	link->i--;
 }
 
