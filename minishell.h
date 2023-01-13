@@ -11,5 +11,6 @@
 #include "syntax_check/ft_syntax.h"
 #include "parser/parser.h"
 #include "expand/expand.h"
+#include <signal.h>
 
 #endif
