@@ -42,14 +42,14 @@ void    sig_handler(int signum)
     }
 }*/
 
-void	sig_handler(int sig_init)
-{
-	(void)sig_init;
-	write (1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+// void	sig_handler(int sig_init)
+// {
+// 	(void)sig_init;
+// 	write (1, "\n", 1);
+// 	rl_on_new_line();
+// 	rl_replace_line("", 0);
+// 	rl_redisplay();
+// }
 
 int main(int ac, char **av, char **env)
 {
@@ -58,7 +58,7 @@ int main(int ac, char **av, char **env)
 
 	ft_args_check(ac, av, env);
 	ft_intro();
-	signal(SIGINT, sig_handler);
+	//  signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while(1)
 	{

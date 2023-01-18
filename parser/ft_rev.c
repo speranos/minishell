@@ -166,6 +166,7 @@ void	ft_print(t_parser *data)
 		while (tmp_redi != NULL)
 		{
 			printf("filename ==>>>>>>>>> %s\n", tmp_redi->fname);
+			printf("Redi_type ==>>>>>>>>> %d\n", tmp_redi->type);
 			tmp_redi = tmp_redi->next;
 		}
 		i = 0;
