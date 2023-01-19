@@ -51,13 +51,30 @@ void    sig_handler(int signum)
 // 	rl_redisplay();
 // }
 
+//builtin
+
+void	init_env(t_envir **env, t_envir **exp)
+{
+	env = NULL;
+	exp = NULL;
+
+	env = malloc(sizeof(t_envir));
+	exp = malloc(sizeof(t_envir));
+}
+//builtin
+
 int main(int ac, char **av, char **env)
 {
 	char    	*input;
 	t_parser	*data;
+	t_envir		*envir;
+	t_envir		*exp;
 
 	ft_args_check(ac, av, env);
 	ft_intro();
+	init_env(&envir, &exp);
+	ft_copy_env(env, &envir);
+	ft_copy_env(env, &exp);
 	//  signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while(1)
@@ -69,12 +86,14 @@ int main(int ac, char **av, char **env)
 		{
 			add_history(input);
 			data = ft_lexxx(input);
-			if(data != NULL)
-			{
-				ft_print(data);
-				ft_free_parser(data);	
-			}
+			// if(data != NULL)
+			// {
+			// 	ft_print(data);
+			// 	// ft_free_parser(data);
+			// }
 			//exec();
+	
+			ft_execution(&envir, &exp, data);
 		}
 		free(input);
 	}

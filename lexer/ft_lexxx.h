@@ -79,4 +79,5 @@ void	ft_ignore_spaces(t_lexer *lexer);
 void	ft_single_quotes(t_lexer *lexer);
 void	ft_init(t_token *link);
 
+
 #endif
