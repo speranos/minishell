@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_syntax.h                                        :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 21:42:41 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/19 21:42:42 by aoueldma         ###   ########.fr       */
+/*   Created: 2021/11/01 11:39:35 by abihe             #+#    #+#             */
+/*   Updated: 2023/01/14 17:57:22 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SYNTAX_H
-# define FT_SYNTAX_H
+#include"../../minishell.h"
 
-int	ft_syntax_check(t_token *link);
-int	ft_after_red(t_token *link);
-int	ft_after_pipe(t_token *link);
-#endif
+int	ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	return (0);
+}

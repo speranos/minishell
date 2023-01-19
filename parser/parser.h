@@ -1,28 +1,18 @@
-#ifndef	PARSER_H
-#define	PARSER_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/19 21:42:19 by aoueldma          #+#    #+#             */
+/*   Updated: 2023/01/19 21:42:21 by aoueldma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// typedef struct redi
-// {
-// 	enum
-// 	{
-// 		red_input, //<
-// 		red_output, //>
-// 		app_input, //<<
-// 		app_error //>>
-// 	}	type;
-// 	char	*fname;
-// 	struct redi *next;
-// }	t_redi;
+#ifndef PARSER_H
+# define PARSER_H
 
-// typedef struct parser
-// {
-// 	char	**args;
-// 	t_redi	*redi;
-// 	char	**envv;
-// 	struct parser *next;
-// }	t_parser;
-
-// void	ft_rev(t_token *link, char **env);
 void	ft_add_to_link(t_parser **data, t_token **link, t_parser *tmp);
 void	ft_add_red(t_parser **tmp, t_token *link);
 void	ft_add_str(t_parser **tmp, t_token *link);
@@ -34,6 +24,7 @@ void	ft_free_parser(t_parser *data);
 void	ft_print(t_parser *data);
 void	ft_add_env(t_parser *data, char **env);
 void	ft_oper(t_parser **data, t_token **link);
-
+void	ft_quote_to_skip(t_token *link, char c, char *str);
+void	ft_mv_to_next(t_token *link_tmp, t_token **link, t_parser **data);
 
 #endif

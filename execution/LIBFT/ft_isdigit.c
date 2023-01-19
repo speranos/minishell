@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_syntax.h                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 21:42:41 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/19 21:42:42 by aoueldma         ###   ########.fr       */
+/*   Created: 2021/11/02 09:09:16 by abel-bou          #+#    #+#             */
+/*   Updated: 2023/01/14 17:58:11 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SYNTAX_H
-# define FT_SYNTAX_H
+#include "../../minishell.h"
 
-int	ft_syntax_check(t_token *link);
-int	ft_after_red(t_token *link);
-int	ft_after_pipe(t_token *link);
-#endif
+int	ft_isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+		return (0);
+	return (1);
+}

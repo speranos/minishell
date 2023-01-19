@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_syntax.h                                        :+:      :+:    :+:   */
+/*   ft_putstrfd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 21:42:41 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/19 21:42:42 by aoueldma         ###   ########.fr       */
+/*   Created: 2022/07/28 20:10:33 by abdessamad        #+#    #+#             */
+/*   Updated: 2023/01/14 17:59:24 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SYNTAX_H
-# define FT_SYNTAX_H
+#include "../../minishell.h"
 
-int	ft_syntax_check(t_token *link);
-int	ft_after_red(t_token *link);
-int	ft_after_pipe(t_token *link);
-#endif
+void	ft_putstr_fd(char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
+}

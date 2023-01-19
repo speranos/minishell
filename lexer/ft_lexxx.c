@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lexxx.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/19 21:40:34 by aoueldma          #+#    #+#             */
+/*   Updated: 2023/01/19 21:40:40 by aoueldma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	ft_free_link(t_token *link)
@@ -18,65 +30,69 @@ void	ft_add_back(t_token **link, t_token *node)
 	t_token	*head;
 
 	head = *link;
-	if(*link == NULL)
+	if (*link == NULL)
 	{
 		*link = node;
-		return;
+		return ;
 	}
 	else
 	{
-		while((*link)->next != NULL)
+		while ((*link)->next != NULL)
 			*link = (*link)->next;
 		(*link)->next = node;
 		*link = head;
 	}
 }
 
+void	ft_lexxx_init(t_lexer *lexer)
+{
+	g_exit_error = 0;
+	lexer->i = 0;
+	lexer->quotes = 0;
+	lexer->c = lexer->input[lexer->i];
+}
+
 t_parser	*ft_lexxx(char *input)
 {
-	t_lexer lexer;
-	t_token *node;
-	t_token *link;
-	t_parser	*data = NULL;
+	t_lexer		lexer;
+	t_token		*node;
+	t_token		*link;
+	t_parser	*data;
 
+	data = NULL;
 	link = NULL;
-	exit_error = 45678978; //init 0;
-	lexer.i = 0;
 	lexer.input = input;
-	lexer.quotes = 0;
-	lexer.c = lexer.input[lexer.i];
-	while(lexer.input[lexer.i])
+	ft_lexxx_init(&lexer);
+	while (lexer.input[lexer.i])
 	{
 		node = ft_searche(&lexer);
 		ft_add_back(&link, node);
 	}
-	if(lexer.quotes != 0 || ft_syntax_check(link) == 1)
+	if (lexer.quotes != 0 || ft_syntax_check(link) == 1)
 	{
 		ft_free_link(link);
-		return(NULL);
+		return (NULL);
 	}
 	ft_expand(link);
 	ft_remove_quotes(link);
 	ft_oper(&data, &link);
-	// ft_free_link(link);
-	// free (node);
-	return(data);
+	return (data);
 }
 
 t_token	*ft_searche(t_lexer *lexer)
 {
-    t_token *token;
+	t_token	*token;
 
 	token = NULL;
-	if(lexer->c <= 32)
+	if (lexer->c <= 32)
 		ft_skip_space(lexer);
-	else if(lexer->c == '|')
+	else if (lexer->c == '|')
 		token = ft_token(token_pipe, ft_conv_to_str(lexer->c));
-	else if(lexer->c == '>' || lexer->c == '<')
+	else if (lexer->c == '>' || lexer->c == '<')
 		token = ft_redirection(lexer);
 	else
 		token = ft_token(token_string, ft_get_str(lexer));
 	lexer->i++;
 	lexer->c = lexer->input[lexer->i];
-    return token;
+	return (token);
 }
