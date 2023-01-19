@@ -12,5 +12,6 @@
 #include "parser/parser.h"
 #include "expand/expand.h"
 #include <signal.h>
+#include "execution/exec.h"
 
 #endif
