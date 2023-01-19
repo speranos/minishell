@@ -68,27 +68,11 @@ void	init_env(t_envir **env, t_envir **exp)
 	env = NULL;
 	exp = NULL;
 
-<<<<<<< HEAD
 	env = malloc(sizeof(t_envir));
 	exp = malloc(sizeof(t_envir));
 }
 
 int	main(int ac, char **av, char **env)
-=======
-//builtin
-
-void	init_env(t_envir **env, t_envir **exp)
-{
-	env = NULL;
-	exp = NULL;
-
-	env = malloc(sizeof(t_envir));
-	exp = malloc(sizeof(t_envir));
-}
-//builtin
-
-int main(int ac, char **av, char **env)
->>>>>>> 6ded913c7dd048de9aa388486f49797f72da67b2
 {
 	char		*input;
 	t_parser	*data;
@@ -111,23 +95,13 @@ int main(int ac, char **av, char **env)
 		{
 			add_history(input);
 			data = ft_lexxx(input);
-<<<<<<< HEAD
 			if (data != NULL)
 			{
 				// ft_print(data);
 				ft_execution(&envir, &exp, data);
 				ft_free_parser(data);
 			}
-=======
-			// if(data != NULL)
-			// {
-			// 	ft_print(data);
-			// 	// ft_free_parser(data);
-			// }
->>>>>>> 6ded913c7dd048de9aa388486f49797f72da67b2
 			//exec();
-	
-			ft_execution(&envir, &exp, data);
 		}
 		free(input);
 	}

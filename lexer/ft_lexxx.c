@@ -76,13 +76,7 @@ t_parser	*ft_lexxx(char *input)
 	ft_expand(link);
 	ft_remove_quotes(link);
 	ft_oper(&data, &link);
-<<<<<<< HEAD
 	return (data);
-=======
-	ft_free_link(link);
-	// free (node);
-	return(data);
->>>>>>> 6ded913c7dd048de9aa388486f49797f72da67b2
 }
 
 t_token	*ft_searche(t_lexer *lexer)

@@ -80,9 +80,4 @@ void		ft_ignore_spaces(t_lexer *lexer);
 void		ft_single_quotes(t_lexer *lexer);
 void		ft_init(t_token *link);
 
-<<<<<<< HEAD
 #endif
-=======
-
-#endif
->>>>>>> 6ded913c7dd048de9aa388486f49797f72da67b2
