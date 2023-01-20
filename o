@@ -1,0 +1,10 @@
+Makefile
+execution
+expand
+lexer
+main.c
+minishell
+minishell.h
+o
+parser
+syntax_check

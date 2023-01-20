@@ -1,7 +1,7 @@
 
 NAME = minishell
 #CC = cc
-CFLAGS = -lreadline -Wall -Wextra -Werror #-L/Users/aoueldma/goinfre/homebrew/opt/readline/lib -I /Users/aoueldma/goinfre/homebrew/opt/readline/include -fsanitize=address
+CFLAGS = -lreadline -Wall -Wextra -Werror -fsanitize=address#-L/Users/aoueldma/goinfre/homebrew/opt/readline/lib -I /Users/aoueldma/goinfre/homebrew/opt/readline/include -fsanitize=address
 SRCS = lexer/*.c syntax_check/*.c parser/*.c expand/*.c *.c execution/built/*.c execution/libft/*.c
 all : $(NAME)
 

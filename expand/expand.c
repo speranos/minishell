@@ -120,7 +120,7 @@ char	*ft_to_fin_str(t_token *link, char *str, int index, int def)
 	int		link_len;
 	char	*fin_str;
 
-	fin_str = malloc(sizeof(char) * (ft_fin_len(link, str, def)));
+	fin_str = malloc(sizeof(char) * (ft_fin_len(link, str, def) + 1));
 	str_len = 0;
 	link_len = 0;
 	link->len = 0;

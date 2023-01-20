@@ -43,7 +43,7 @@ int	ft_after_red(t_token *link)
 
 int	ft_syntax_check(t_token *link)
 {
-	if (link->e_type == 1)
+	if (link && link->e_type == 1)
 	{
 		ft_syntax_error();
 		return (1);

@@ -84,24 +84,20 @@ int	main(int ac, char **av, char **env)
 	init_env(&envir, &exp);
 	ft_copy_env(env, &envir);
 	ft_copy_env(env, &exp);
-	//  signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
+	//signal(SIGINT, sig_handler);
+	//signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		input = readline("ach_tama>$ ");
-		if (!input)
-			exit (0);
 		if (*input != '\0')
 		{
 			add_history(input);
 			data = ft_lexxx(input);
 			if (data != NULL)
 			{
-				// ft_print(data);
 				ft_execution(&envir, &exp, data);
 				ft_free_parser(data);
 			}
-			//exec();
 		}
 		free(input);
 	}
