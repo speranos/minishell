@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:35:16 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/19 19:09:07 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/20 19:06:02 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,19 @@ char	**set_env(t_envir *env)
 
 void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 {
-	int fd[2];
-	int pid;
-	int temp_fd = 0;
-	char **env;//
-	env = set_env(*envir);
-	char *path;
+	int		fd[2];
+	int		pid;
+	int		temp_fd = 0;
+	char	**env;
+	char	*path;
+	int tmpin = dup(0);
+	int tmpout = dup(1);
 
-	// if(!data->next)
-	// 	one_node(envir, exp, data);
-	// else
-	// {
+	env = set_env(*envir);
+	if (!data->next)
+		one_node(envir, exp, data);
+	else
+	{
 		while (data)
 		{
 			if (data->next)
@@ -94,13 +96,21 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 			else
 				fd[1] = 1;
 			if (is_built(data) == 0)
-				ft_built(envir, exp, data, fd[1]);
+			{
+				int _fd = 0;
+				_fd = ft_redirection_in_out(data);
+				if (_fd != 0)
+					ft_built(envir, exp, data, _fd);
+				else
+					ft_built(envir, exp, data, fd[1]);
+			}
 			else
 			{
 				path = set_path(envir, data->args[0]);
 				pid = fork();
-				if (pid == 0)//child
+				if (pid == 0)
 				{
+					close(fd[0]);
 					if (data->next)
 					{
 						dup2(fd[1], 1);
@@ -115,8 +125,13 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 					if (execve(path, data->args, env) == -1)
 					{
 						printf("HELLO MFS Minishell: %s: command not found\n", path);
-						return ;
+						break ;
 					}
+				}
+				else if (pid < 0)
+				{
+					printf("minishell: fork: Resource temporarily unavailable\n");
+					break ;
 				}
 			}
 			if (temp_fd != 0)
@@ -136,12 +151,11 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 		// int fd1 = dup(0);
 		// printf("%d\n", fd1);
 		// close(fd1);
-		while(waitpid(-1, NULL, 0) > 0);
-	// }
+		dup2(tmpin, 0);
+		dup2(tmpout, 1);
+		while (waitpid(-1, NULL, 0) > 0);
+	}
 }
-
-
-
 
 void    ft_built(t_envir **envir, t_envir **exp, t_parser *tmp , int fd)
 {

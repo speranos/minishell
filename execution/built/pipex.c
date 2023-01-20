@@ -16,20 +16,25 @@ int		one_node(t_envir **env, t_envir **exp, t_parser *data)
 {
 	int		pid;
 	char	*path;
+	int tmpin = dup(0);
+	int tmpout = dup(1);
 
 	path = set_path(env,data->args[0]);
 	if (is_built(data) == 0)
 	{
-		ft_redirection_in_out(data);
-		printf("pitchuuuup\n");
+		 ft_redirection_in_out(data);
 		ft_built(env, exp, data, 1);
+		dup2(tmpin, 0);
+		dup2(tmpout, 1);
 	}
 	else
 	{
 		pid = fork();
 		if (pid == 0)
 		{
-		ft_redirection_in_out(data);
+			ft_redirection_in_out(data);
+			if (!path)
+				exit(3);
 			if (execve(path, data->args, set_env(*env)) == -1)
 			{
 				ft_putstr_fd("Minishell: ", 2);

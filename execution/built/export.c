@@ -1,30 +1,41 @@
-#include "../../minishell.h"
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/20 18:12:06 by abihe             #+#    #+#             */
+/*   Updated: 2023/01/20 18:20:50 by abihe            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int ft_equal(char *str)
+#include "../../minishell.h"
+
+int	ft_equal(char *str)
 {
-	int i;
+	int	i;
+
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == '=')
+		if (str[i] == '=')
 			return (0);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
 void	ft_exp_printf(t_envir *exp, int fd)
 {
-	while(exp)
+	while (exp)
 	{
-		if(ft_equal(exp->line_env))
+		if (ft_equal(exp->line_env))
 		{
 			ft_putstr_fd("declare -x ", fd);
 			ft_putstr_fd(exp->line_env, fd);
 			ft_putstr_fd("\n", fd);
 		}
-			// printf("declare -x %s\n",exp->name);
 		else
 		{
 			ft_putstr_fd("declare -x ", fd);
@@ -33,14 +44,13 @@ void	ft_exp_printf(t_envir *exp, int fd)
 			ft_putstr_fd(exp->value, fd);
 			ft_putstr_fd("\"\n", fd);
 		}
-			// printf("declare -x %s=\"%s\"\n", exp->name,exp->value);
 		exp = exp->next;
 	}
 }
 
-int    ft_count_arg(char **arg)
+int	ft_count_arg(char **arg)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arg[i])
@@ -50,16 +60,14 @@ int    ft_count_arg(char **arg)
 
 void	ft_swap_data(t_envir *exp)
 {
-	char *tmp1;
+	char	*tmp1;
 
 	tmp1 = exp->line_env;
 	exp->line_env = exp->next->line_env;
 	exp->next->line_env = tmp1;
-
 	tmp1 = exp->name;
 	exp->name = exp->next->name;
 	exp->next->name = tmp1;
-
 	tmp1 = exp->value;
 	exp->value = exp->next->value;
 	exp->next->value = tmp1;
@@ -89,7 +97,7 @@ void	sort_export(t_envir *exp)
 
 int	is_valid(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] >= '0' && str[i] <= '9')
@@ -106,10 +114,10 @@ int	is_valid(char *str)
 
 void	ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd)
 {
-	int si;
-	int i;
-	int size;
-	char *name;
+	int		si;
+	int		i;
+	int		size;
+	char	*name;
 
 	i = 1;
 	si = ft_count_arg(data->args);
@@ -121,8 +129,8 @@ void	ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd)
 	else
 	{
 		while (i < si)
-		{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-			if(data->args[i] )
+		{
+			if (data->args[i])
 			{
 				if (!ft_sear_env(exp, data->args[i]))
 				{
@@ -136,7 +144,7 @@ void	ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd)
 						ft_add_ba(env, ft_lstnew(data->args[i]));
 					}
 				}
-				else if(ft_strchr(data->args[i], '='))
+				else if (ft_strchr(data->args[i], '='))
 				{
 					ft_add_ba(env, ft_lstnew(data->args[i]));
 					ft_add_ba(exp, ft_lstnew(data->args[i]));
@@ -149,6 +157,7 @@ void	ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd)
 				ft_putstr_fd("minishell: export: `", fd);
 				ft_putstr_fd(data->args[i], fd);
 				ft_putstr_fd("': not a valid identifier\n", fd);
+				exit(fd);
 			}
 			i++;
 		}

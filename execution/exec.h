@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:32:59 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/19 18:50:16 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/20 18:06:16 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		ft_count_arg(char **arg);
 int		ft_sear_env(t_envir **envir,char *arg);
 void    ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd);
 int		is_built(t_parser *tmp);
+void	ft_error(char *str, char *arg, char *str2, int exit);
 
 //pipe
 char	**ft_split(const char *s, char c);
