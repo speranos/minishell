@@ -76,14 +76,14 @@ int	main(int ac, char **av, char **env)
 {
 	char		*input;
 	t_parser	*data;
-	t_envir		*envir;
-	t_envir		*exp;
+	// t_envir		*envir;
+	// t_envir		*exp;
 
 	ft_args_check(ac, av, env);
 	ft_intro();
-	init_env(&envir, &exp);
-	ft_copy_env(env, &envir);
-	ft_copy_env(env, &exp);
+	// init_env(&envir, &exp);
+	// ft_copy_env(env, &envir);
+	// ft_copy_env(env, &exp);
 	//signal(SIGINT, sig_handler);
 	//signal(SIGQUIT, SIG_IGN);
 	while (1)
@@ -95,7 +95,8 @@ int	main(int ac, char **av, char **env)
 			data = ft_lexxx(input);
 			if (data != NULL)
 			{
-				ft_execution(&envir, &exp, data);
+				//ft_execution(&envir, &exp, data);
+				ft_print(data);
 				ft_free_parser(data);
 			}
 		}

@@ -126,10 +126,11 @@ char	*ft_to_fin_str(t_token *link, char *str, int index, int def)
 	link->len = 0;
 	while (link->str[link_len])
 	{
+		printf("OGF(V(\n");
 		if (link_len == index)
 		{
 			if (str != NULL)
-			{	
+			{
 				while (str[str_len] != '\0')
 					fin_str[link->len++] = str[str_len++];
 			}

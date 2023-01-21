@@ -1,0 +1,5 @@
+pwd <k | cat k
+pwd <k | cat k | echo pwd
+pwd <k | <<j
+pwd >l | ls
+pwd >l | <<j
