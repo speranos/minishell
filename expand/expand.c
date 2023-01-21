@@ -51,7 +51,8 @@ void	ft_single(t_token *link)
 			link->index++;
 		link->i++;
 	}
-	link->i--;
+	if(link->str[link->i] == '\0')
+		link->i--;
 }
 
 void	ft_dollar(t_token *link)
@@ -88,6 +89,7 @@ void	ft_update_ex(t_token *link, int tmp)
 	}
 	str[i] = '\0';
 	get_str = getenv(str);
+	i++;
 	ft_link_update(link, get_str, index, i);
 	free(str);
 }
@@ -110,7 +112,7 @@ int	ft_fin_len(t_token *link, char *str, int def)
 
 	link_len = ft_len(link->str);
 	str_len = ft_len(str);
-	len = (link_len - (def + 1)) + str_len;
+	len = (link_len - (def)) + str_len;
 	return (len);
 }
 
@@ -126,7 +128,6 @@ char	*ft_to_fin_str(t_token *link, char *str, int index, int def)
 	link->len = 0;
 	while (link->str[link_len])
 	{
-		printf("OGF(V(\n");
 		if (link_len == index)
 		{
 			if (str != NULL)
@@ -134,7 +135,7 @@ char	*ft_to_fin_str(t_token *link, char *str, int index, int def)
 				while (str[str_len] != '\0')
 					fin_str[link->len++] = str[str_len++];
 			}
-			link_len += def + 1;
+			link_len += def;
 		}
 		else
 			fin_str[link->len++] = link->str[link_len++];
@@ -176,7 +177,10 @@ int	ft_alpha(t_token *link)
 	else if (c == 34 || c == 39)
 		ft_rm_dollar(link);
 	else if (c == '?')
+	{
+		printf("WEHWERRHW\n");
 		ft_quest_mark(link);
+	}
 	else if (c >= 65 && c <= 90)
 		return (0);
 	else if (c >= 97 && c <= 122)
@@ -186,14 +190,35 @@ int	ft_alpha(t_token *link)
 	return (1);
 }
 
+void	ft_num_to_finstr(t_token *link, int len, int tmp)
+{
+	char	*str;
+	int		i = 0;
+
+	str = malloc(sizeof(char) * (len + 1));
+	while(link->str[tmp])
+	{
+		str[i++] = link->str[tmp++];
+	}
+	str[i] = '\0';
+	free(link->str);
+	link->str = str;
+	link->i = -1;
+}
+
 void	ft_rm_num(t_token *link)
 {
 	int	tmp;
 
-	tmp = link->i;
-	link->i += 2;
-	link->len = 3;
-	ft_update_ex(link, tmp);
+	tmp = link->i += 2;
+	int i = tmp;
+	int len = 0;
+	while(link->str[i])
+	{
+		len++;
+		i++;
+	}
+	ft_num_to_finstr(link, i, tmp);
 }
 
 void	ft_rm_dollar(t_token *link)
@@ -213,7 +238,7 @@ void	ft_quest_mark(t_token *link)
 
 	str = itoa(g_exit_error);
 	index = link->i;
-	len = link->i + 1;
+	len = 2;
 	ft_link_update(link, str, index, len);
 	free(str);
 }
