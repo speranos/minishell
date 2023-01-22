@@ -3,5 +3,4 @@ pwd <k | cat k | echo pwd
 pwd <k | <<j
 pwd >l | ls
 pwd >l | <<j
-export 45
-export _gs "kaduz" "_ A->z"
+ls >>fjk "newline" pwd >> fjk | cat fjk
