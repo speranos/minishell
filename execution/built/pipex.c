@@ -19,20 +19,27 @@ int		one_node(t_envir **env, t_envir **exp, t_parser *data)
 	int tmpin = dup(0);
 	int tmpout = dup(1);
 
+	check_herdox(data);
 	path = set_path(env,data->args[0]);
+
 	if (is_built(data) == 0)
 	{
-		 ft_redirection_in_out(data);
+		ft_redirection_in_out(data);
 		ft_built(env, exp, data, 1);
-		dup2(tmpin, 0);
-		dup2(tmpout, 1);
 	}
 	else
 	{
 		pid = fork();
 		if (pid == 0)
 		{
+			// if(data->her_doc == 1)
+			// 	printf("here\n");
 			ft_redirection_in_out(data);
+			if (data->her_doc)
+			{
+				dup2(data->herdoc_fd, 0);
+				close(data->herdoc_fd);
+			}
 			if (!path)
 				exit(3);
 			if (execve(path, data->args, set_env(*env)) == -1)
@@ -45,5 +52,7 @@ int		one_node(t_envir **env, t_envir **exp, t_parser *data)
 		}
 		waitpid(pid, NULL, 0);
 	}
+	dup2(tmpin, 0);
+	dup2(tmpout, 1);
 	return (0);
 }

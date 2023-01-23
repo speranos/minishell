@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:35:16 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/20 19:06:02 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/22 15:29:52 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 		one_node(envir, exp, data);
 	else
 	{
+		check_herdox(data);
 		while (data)
 		{
 			if (data->next)
@@ -97,20 +98,22 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 				fd[1] = 1;
 			if (is_built(data) == 0)
 			{
-				int _fd = 0;
-				_fd = ft_redirection_in_out(data);
-				if (_fd != 0)
-					ft_built(envir, exp, data, _fd);
-				else
+				int _fd;
+				_fd = ft_redirection_built_out(data);
+				if (data->next && (_fd == 1 || _fd == 0))
 					ft_built(envir, exp, data, fd[1]);
+				else
+					ft_built(envir, exp, data, _fd);
 			}
 			else
 			{
+
 				path = set_path(envir, data->args[0]);
 				pid = fork();
 				if (pid == 0)
 				{
-					close(fd[0]);
+					if (data->her_doc) // iif i close fd 0 the pip will not work well
+						close(fd[0]);
 					if (data->next)
 					{
 						dup2(fd[1], 1);
@@ -123,10 +126,7 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 					}
 					ft_redirection_in_out(data);
 					if (execve(path, data->args, env) == -1)
-					{
-						printf("HELLO MFS Minishell: %s: command not found\n", path);
 						break ;
-					}
 				}
 				else if (pid < 0)
 				{
@@ -147,10 +147,6 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 		}
 		if (temp_fd != 0)
 			close(temp_fd);
-			//to check if the fd is closed
-		// int fd1 = dup(0);
-		// printf("%d\n", fd1);
-		// close(fd1);
 		dup2(tmpin, 0);
 		dup2(tmpout, 1);
 		while (waitpid(-1, NULL, 0) > 0);
@@ -160,7 +156,7 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 void    ft_built(t_envir **envir, t_envir **exp, t_parser *tmp , int fd)
 {
 	if (!strcmp(tmp->args[0], "pwd"))
-		ft_pwd();
+		ft_pwd(fd);
 	else if (!strcmp(tmp->args[0], "echo"))
 		ft_echo(tmp->args, fd);
 	else if (!strcmp(tmp->args[0], "cd"))

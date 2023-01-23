@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:32:59 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/20 18:06:16 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/22 13:09:48 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		is_valid(char *str);
 char    *ft_strndup(const char *s1, size_t n);
 
 //built
-char	*ft_pwd(void);
+char	*ft_pwd(int fd);
 char	*ft_echo(char **arg, int fd);
 void	ft_cd(char *argv, t_envir **env, t_envir **exp);
 void	ft_exit(char **arg, int argc, int fd);
@@ -83,6 +83,7 @@ int		ft_sear_env(t_envir **envir,char *arg);
 void    ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd);
 int		is_built(t_parser *tmp);
 void	ft_error(char *str, char *arg, char *str2, int exit);
+int		is_valid(char *str);
 
 //pipe
 char	**ft_split(const char *s, char c);
@@ -92,13 +93,14 @@ int		size_list(t_parser *list);
 void    close_pip(t_pip *pip);
 // void 	new_proce(t_parser *data, t_pip *pip, t_envir **env);
 void	uno_node(t_envir **env, t_envir **exp, t_parser *data, t_pip **pip);
-t_pip	*ft_exec(t_envir **exp, t_envir **env, t_parser *data);
-int	ft_redirection_in_out(t_parser *data);
+int		ft_redirection_built_out(t_parser *data);
+int		ft_redirection_in_out(t_parser *data);
 
 
 int		one_node(t_envir **env, t_envir **exp, t_parser *data);
 void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data);
 char	**set_env(t_envir *env);
 int		herdoc(t_parser *data);
+void	check_herdox(t_parser *data);
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:12:06 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/20 18:20:50 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/22 15:16:33 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,21 +95,33 @@ void	sort_export(t_envir *exp)
 	}
 }
 
-int	is_valid(char *str)
+void	add_export(t_envir **exp, t_envir **env, t_parser *data, char *name, int i)
 {
-	int	i;
-
-	i = 0;
-	if (str[i] >= '0' && str[i] <= '9')
-		return (1);
-	while (str[i])
+	if (!ft_sear_env(exp, data->args[i]))
 	{
-		if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= '0' && str[i] <= '9') || str[i] == '_')
-			i++;
-		else
-			return (1);
+		if (ft_strchr(data->args[i], '=') != NULL)
+		{
+			delete_node(exp, name);
+			delete_node(env, name);
+			ft_add_ba(exp, ft_lstnew(data->args[i]));
+			ft_add_ba(env, ft_lstnew(data->args[i]));
+		}
 	}
-	return (0);
+	else if (ft_strchr(data->args[i], '='))
+	{
+		ft_add_ba(env, ft_lstnew(data->args[i]));
+		ft_add_ba(exp, ft_lstnew(data->args[i]));
+	}
+	else
+		ft_add_ba(exp, ft_lstnew(data->args[i]));
+}
+
+int	exp_error(char *arg, int fd)
+{
+	ft_putstr_fd("minishell: export: `", fd);
+	ft_putstr_fd(arg, fd);
+	ft_putstr_fd("': not a valid identifier\n", fd);
+	return (1);
 }
 
 void	ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd)
@@ -130,35 +142,12 @@ void	ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd)
 	{
 		while (i < si)
 		{
-			if (data->args[i])
-			{
-				if (!ft_sear_env(exp, data->args[i]))
-				{
-					if (ft_strchr(data->args[i], '=') != NULL)
-					{
-						size = ft_strlen(ft_strchr(data->args[i], '='));
-						name = ft_substr(data->args[i], 0, ft_strlen(data->args[i]) - size);
-						delete_node(exp, name);
-						delete_node(env, name);
-						ft_add_ba(exp, ft_lstnew(data->args[i]));
-						ft_add_ba(env, ft_lstnew(data->args[i]));
-					}
-				}
-				else if (ft_strchr(data->args[i], '='))
-				{
-					ft_add_ba(env, ft_lstnew(data->args[i]));
-					ft_add_ba(exp, ft_lstnew(data->args[i]));
-				}
-				else
-					ft_add_ba(exp, ft_lstnew(data->args[i]));
-			}
+			size = ft_strlen(ft_strchr(data->args[i], '='));
+			name = ft_substr(data->args[i], 0, ft_strlen(data->args[i]) - size);
+			if (data->args[i] && !is_valid(name))
+				add_export(exp, env, data, name, i);
 			else
-			{
-				ft_putstr_fd("minishell: export: `", fd);
-				ft_putstr_fd(data->args[i], fd);
-				ft_putstr_fd("': not a valid identifier\n", fd);
-				exit(fd);
-			}
+				exp_error(data->args[i], fd);
 			i++;
 		}
 	}
