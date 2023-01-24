@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:35:16 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/22 15:29:52 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 12:24:06 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 				pid = fork();
 				if (pid == 0)
 				{
-					if (data->her_doc) // iif i close fd 0 the pip will not work well
+					if (data->her_doc)
 						close(fd[0]);
 					if (data->next)
 					{
@@ -126,7 +126,7 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 					}
 					ft_redirection_in_out(data);
 					if (execve(path, data->args, env) == -1)
-						break ;
+						exit_status(data->args[0]);
 				}
 				else if (pid < 0)
 				{

@@ -1,16 +1,5 @@
 #include "../../minishell.h"
 
-void	close_pip(t_pip *pip)
-{
-	int	i;
-
-	i = 0;
-	while (i < (pip->nb_pip - 1) * 2)
-	{
-		close(pip->p_fd[i]);
-		i++;
-	}
-}
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 10:26:47 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/22 15:07:38 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 10:33:40 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	herdoc(t_parser *data)
 	}
 	close(fd);
 	fd = open("/tmp/herdc.txt", O_RDWR, 0644);
-	dup2(fd, 0);
-	close(fd);
+	// dup2(fd, 0);
+	// close(fd);
 	return (fd);
 }
 

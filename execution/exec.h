@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:32:59 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/22 13:09:48 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 12:32:23 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	ft_add_ba(t_envir **stack, t_envir *new);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
-void    delete_node(t_envir **env, char *name);
+void	delete_node(t_envir **env, char *name);
 char	*ft_strdup(const char *s1);
 int		ft_check_alpha(char *word);
 int		is_number(char *str);
 int		is_valid(char *str);
-char    *ft_strndup(const char *s1, size_t n);
+char	*ft_strndup(const char *s1, size_t n);
 
 //built
 char	*ft_pwd(int fd);
@@ -80,9 +80,9 @@ void	ft_exp_printf(t_envir *exp, int fd);
 void	init_env(t_envir **env, t_envir **exp);
 int		ft_count_arg(char **arg);
 int		ft_sear_env(t_envir **envir,char *arg);
-void    ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd);
+void	ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd);
 int		is_built(t_parser *tmp);
-void	ft_error(char *str, char *arg, char *str2, int exit);
+int		ft_error(char *str, char *arg, char *str2, int exit);
 int		is_valid(char *str);
 
 //pipe
@@ -90,7 +90,6 @@ char	**ft_split(const char *s, char c);
 t_pip	*ft_fil_pip(t_pip *pip, t_parser *data);
 char	*set_path(t_envir **env, char *cmd);
 int		size_list(t_parser *list);
-void    close_pip(t_pip *pip);
 // void 	new_proce(t_parser *data, t_pip *pip, t_envir **env);
 void	uno_node(t_envir **env, t_envir **exp, t_parser *data, t_pip **pip);
 int		ft_redirection_built_out(t_parser *data);
@@ -102,5 +101,6 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data);
 char	**set_env(t_envir *env);
 int		herdoc(t_parser *data);
 void	check_herdox(t_parser *data);
+void	exit_status(char *str);
 
 # endif
