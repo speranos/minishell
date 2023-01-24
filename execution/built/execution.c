@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 23:34:04 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/25 00:11:11 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 00:41:27 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	if_build_helper(char *path, t_envir **envir, t_parser *data, int *fd)
 
 	env = set_env(*envir);
 	temp_fd = 0;
-	if (data->her_doc)
+	// if (data->her_doc)
 		close(fd[0]);
 	if (data->next)
 	{
