@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 23:16:34 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 22:54:24 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 23:12:37 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	node_1(t_envir **env, t_parser *data)
 	int		pid;
 	char	*path;
 
-	path = set_path(env, data->args[0]);
 	// while (1);
+	path = NULL;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -28,6 +28,7 @@ void	node_1(t_envir **env, t_parser *data)
 			dup2(data->herdoc_fd, 0);
 			close(data->herdoc_fd);
 		}
+		path = set_path(env, data->args[0]);
 		if (!path)
 			exit(3);
 		if (execve(path, data->args, set_env(*env)) == -1)

@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:35:16 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 22:42:27 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 00:12:31 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,85 +75,25 @@ char	**set_env(t_envir *env)
 
 void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 {
-	int		fd[2];
-	int		pid;
 	int		temp_fd;
-	char	**env;
-	char	*path;
 	int		tmpin;
 	int		tmpout;
-	int		_fd;
 
 	temp_fd = 0;
 	tmpin = dup(0);
 	tmpout = dup(1);
-	env = set_env(*envir);
 	if (!data->next)
 		one_node(envir, exp, data);
 	else
 	{
 		check_herdox(data);
-		while (data)
-		{
-			if (data->next)
-				pipe(fd);
-			else
-				fd[1] = 1;
-			if (is_built(data) == 0)
-			{
-				_fd = ft_redirection_built_out(data);
-				if (data->next && (_fd == 1 || _fd == 0))
-					ft_built(envir, exp, data, fd[1]);
-				else
-					ft_built(envir, exp, data, _fd);
-			}
-			else
-			{
-				path = set_path(envir, data->args[0]);
-				pid = fork();
-				if (pid == 0)
-				{
-					if (data->her_doc)
-						close(fd[0]);
-					if (data->next)
-					{
-						dup2(fd[1], 1);
-						close(fd[1]);
-					}
-					if (temp_fd != 0)
-					{
-						dup2(temp_fd, 0);
-						close(temp_fd);
-					}
-					ft_redirection_in_out(data);
-					if (execve(path, data->args, env) == -1)
-						exit_status(data->args[0]);
-				}
-				else if (pid < 0)
-				{
-					printf("minishell: fork: Resource temporarily unavailable\n");
-					break ;
-				}
-				free(path);
-			}
-			if (temp_fd != 0)
-				close(temp_fd);
-			if (data->next)
-			{
-				close(fd[1]);
-				temp_fd = fd[0];
-			}
-			else
-				temp_fd = 0;
-			data = data->next;
-		}//end of while
+		execution_utils(envir, exp, data);
 		if (temp_fd != 0)
 			close(temp_fd);
 		dup2(tmpin, 0);
 		dup2(tmpout, 1);
 		while (waitpid(-1, NULL, 0) > 0);
 	}
-	free_double(env);
 }
 
 void	ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd)

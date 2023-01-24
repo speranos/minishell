@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:32:59 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 22:40:22 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 00:09:10 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ char	**ft_split(const char *s, char c);
 t_pip	*ft_fil_pip(t_pip *pip, t_parser *data);
 char	*set_path(t_envir **env, char *cmd);
 int		size_list(t_parser *list);
+void	execution_utils(t_envir **envir, t_envir **exp, t_parser *data);
+
+
 // void 	new_proce(t_parser *data, t_pip *pip, t_envir **env);
 void	uno_node(t_envir **env, t_envir **exp, t_parser *data, t_pip **pip);
 int		ft_redirection_built_out(t_parser *data);

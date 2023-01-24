@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 12:28:51 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/22 12:28:54 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 23:09:40 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,6 @@ int	ft_redirection_in_out(t_parser *data)
 	}
 	return (fdout);
 }
-
-
-
-
 
 int	ft_redirection_built_out(t_parser *data)
 {

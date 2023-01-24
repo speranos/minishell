@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:12:06 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 11:16:07 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 23:16:34 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd)
 				add_export(exp, env, data, name, i);
 			else
 				exp_error(data->args[i], fd);
+			free(name);
 			i++;
 		}
 	}
