@@ -6,15 +6,13 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:35:16 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 12:24:06 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 22:42:27 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-# include<unistd.h>
 
-
-int    is_built(t_parser *tmp)
+int	is_built(t_parser *tmp)
 {
 	if (!ft_strcmp(tmp->args[0], "pwd"))
 		return (0);
@@ -54,6 +52,7 @@ char	**set_env(t_envir *env)
 	int		i;
 	char	**str;
 	t_envir	*tmp;
+
 	i = 0;
 	tmp = env;
 	while (tmp)
@@ -78,12 +77,16 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 {
 	int		fd[2];
 	int		pid;
-	int		temp_fd = 0;
+	int		temp_fd;
 	char	**env;
 	char	*path;
-	int tmpin = dup(0);
-	int tmpout = dup(1);
+	int		tmpin;
+	int		tmpout;
+	int		_fd;
 
+	temp_fd = 0;
+	tmpin = dup(0);
+	tmpout = dup(1);
 	env = set_env(*envir);
 	if (!data->next)
 		one_node(envir, exp, data);
@@ -98,7 +101,6 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 				fd[1] = 1;
 			if (is_built(data) == 0)
 			{
-				int _fd;
 				_fd = ft_redirection_built_out(data);
 				if (data->next && (_fd == 1 || _fd == 0))
 					ft_built(envir, exp, data, fd[1]);
@@ -107,7 +109,6 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 			}
 			else
 			{
-
 				path = set_path(envir, data->args[0]);
 				pid = fork();
 				if (pid == 0)
@@ -133,6 +134,7 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 					printf("minishell: fork: Resource temporarily unavailable\n");
 					break ;
 				}
+				free(path);
 			}
 			if (temp_fd != 0)
 				close(temp_fd);
@@ -144,25 +146,33 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 			else
 				temp_fd = 0;
 			data = data->next;
-		}
+		}//end of while
 		if (temp_fd != 0)
 			close(temp_fd);
 		dup2(tmpin, 0);
 		dup2(tmpout, 1);
 		while (waitpid(-1, NULL, 0) > 0);
 	}
+	free_double(env);
 }
 
-void    ft_built(t_envir **envir, t_envir **exp, t_parser *tmp , int fd)
+void	ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd)
 {
+	char *pwd;
+
 	if (!strcmp(tmp->args[0], "pwd"))
-		ft_pwd(fd);
+	{
+		pwd = ft_pwd(*envir);
+		ft_putstr_fd(pwd, fd);
+		write(fd, "\n", 1);
+		free(pwd);
+	}
 	else if (!strcmp(tmp->args[0], "echo"))
 		ft_echo(tmp->args, fd);
 	else if (!strcmp(tmp->args[0], "cd"))
 		ft_cd(tmp->args[1], envir, exp);
 	else if (!strcmp(tmp->args[0], "exit"))
-		ft_exit(tmp->args,ft_count_arg(tmp->args), fd);
+		ft_exit(tmp->args, ft_count_arg(tmp->args), fd);
 	else if (!strcmp(tmp->args[0], "env"))
 		ft_env_printf(*envir, fd);
 	else if (!strcmp(tmp->args[0], "unset"))

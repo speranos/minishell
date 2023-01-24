@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:40:02 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/22 13:36:08 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 18:15:27 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,13 @@ int	ft_sear_env(t_envir **envir, char *arg)
 	while (tmp)
 	{
 		if (!ft_strcmp(name, (tmp)->name))
+		{
+			free(name);
 			return (0);
+		}
 		tmp = (tmp)->next;
 	}
+	free(name);
 	return (1);
 }
 

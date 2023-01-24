@@ -6,13 +6,13 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 10:14:32 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/14 17:59:28 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 15:53:59 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*d;
 	size_t	i;

@@ -6,21 +6,37 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 15:39:09 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/21 16:08:44 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 22:40:18 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	*ft_pwd(int fd)
+char    *get_env(char *var, t_envir *env)
+{
+    char    *ret;
+
+    ret = NULL;
+    while (env)
+    {
+        if (ft_strcmp(env->name, var) == 0)
+            ret = ft_strdup(env->value);
+        env = env->next;
+    }
+    if (ret)
+        return (ret);
+    return (ft_strdup(""));
+}
+
+char	*ft_pwd(t_envir *env)
 {
 	char	pwd[1024];
+	char	*path;
 
-	if(getcwd(pwd, 1024) != 0)
+	if(getcwd(pwd, 1024))
 	{
-		ft_putstr_fd(pwd, fd);
-		ft_putstr_fd("\n", fd);
+		path = ft_strdup(pwd);
+		return (path);
 	}
-		
-	return (ft_strdup(pwd));
+	return (get_env("PWD", env));
 }

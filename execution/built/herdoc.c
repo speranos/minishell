@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 10:26:47 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 10:33:40 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 18:29:02 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	herdoc(t_parser *data)
 		{
 			line = readline("> ");
 			if (ft_strcmp(line, data->redi->fname) == 0)
+			{
+				free(line);
 				break ;
+			}
 			write(fd, line, ft_strlen(line));
 			write(fd, "\n", 1);
 			free(line);

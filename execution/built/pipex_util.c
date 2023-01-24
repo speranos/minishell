@@ -32,10 +32,24 @@ char	**sear_path(t_envir **env)
 	return (ft_split(tmp->value, ':'));
 }
 
+void	free_double(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
+
 char	*set_path(t_envir **env, char *cmd)
 {
 	char	**path;
 	char	*str;
+	char	*pt;
 	t_envir	*tmp;
 	int		i;
 
@@ -47,50 +61,22 @@ char	*set_path(t_envir **env, char *cmd)
 	while (path[i])
 	{
 		str = ft_strjoin("/", cmd);
-		path[i] = ft_strjoin(path[i], str);
+		pt = ft_strjoin(path[i], str);
 		free(str);
-		if (access(path[i], F_OK) == 0)
-			return (path[i]);
+		if (access(pt, F_OK) == 0)
+		{
+			free_double(path);
+			// free(path);
+			return (pt);
+		}
+		else
+		{
+			// free(path[i]);
+			free(pt);
+		}
 		i++;
 	}
+	if (path)
+		free_double(path);
 	return (cmd);
 }
-
-// void	exec_env(t_envir **env, t_pip *pip)
-// {
-// 	int		i;
-// 	t_envir	*tmp;
-// 	i = 0;
-// 	tmp = *env;
-// 	while (tmp)
-// 	{
-// 		tmp = tmp->next;
-// 		i++;
-// 	}
-// 	pip->env = malloc(sizeof(char *) * (i + 1));
-// 	i = 0;
-// 	while (tmp)
-// 	{
-// 		pip->env[i] = ft_strdup(tmp->line_env);
-// 		tmp = tmp->next;
-// 		printf("heroshima=====>>> %s\n", pip->env[i]);
-// 		i++;
-// 	}
-// 	pip->env[i] = 0;
-// }
-
-t_pip	*ft_fil_pip(t_pip *pip, t_parser *data)
-{
-	int	i = 0;
-
-	pip = malloc(sizeof(t_pip));
-	pip->nb_pip = size_list(data) - 1;
-	pip->fd = malloc(sizeof(int*) * pip->nb_pip);
-	while (i < pip->nb_pip)
-	{
-		pip->fd[i] = malloc(sizeof(int) * 2);
-		pipe(pip->fd[i]);
-		i++;
-	}
-	return (pip);
- }

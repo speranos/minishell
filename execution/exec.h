@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:32:59 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 12:32:23 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/24 22:40:22 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		ft_lstsize(t_envir *list);
 void	ft_add_front(t_envir *var, t_envir *new);
 void	ft_add_ba(t_envir **stack, t_envir *new);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
 void	delete_node(t_envir **env, char *name);
 char	*ft_strdup(const char *s1);
@@ -67,7 +67,7 @@ int		is_valid(char *str);
 char	*ft_strndup(const char *s1, size_t n);
 
 //built
-char	*ft_pwd(int fd);
+char	*ft_pwd(t_envir *env);
 char	*ft_echo(char **arg, int fd);
 void	ft_cd(char *argv, t_envir **env, t_envir **exp);
 void	ft_exit(char **arg, int argc, int fd);
@@ -102,5 +102,7 @@ char	**set_env(t_envir *env);
 int		herdoc(t_parser *data);
 void	check_herdox(t_parser *data);
 void	exit_status(char *str);
+void	free_double(char **str);
+char    *get_env(char *var, t_envir *env);
 
 # endif
