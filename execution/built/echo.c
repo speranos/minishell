@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:50:01 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/20 17:50:29 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 12:56:06 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	echo_arg(char **arg, int *f, int fd)
 	}
 }
 
-char	*ft_echo(char **arg, int fd)
+int	ft_echo(char **arg, int fd)
 {
 	int	f;
 
@@ -61,5 +61,5 @@ char	*ft_echo(char **arg, int fd)
 	echo_arg(arg, &f, fd);
 	if (f == 0)
 		ft_putstr_fd("\n", fd);
-	return ("");
+	return (0);
 }

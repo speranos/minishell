@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:32:59 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/25 00:09:10 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 13:42:57 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ char	*ft_strndup(const char *s1, size_t n);
 
 //built
 char	*ft_pwd(t_envir *env);
-char	*ft_echo(char **arg, int fd);
-void	ft_cd(char *argv, t_envir **env, t_envir **exp);
-void	ft_exit(char **arg, int argc, int fd);
-void	ft_unset(t_envir **envir, t_envir **exp, char **arg, int fd);
+int		ft_echo(char **arg, int fd);
+int		ft_cd(char *argv, t_envir **env, t_envir **exp);
+int		ft_exit(char **arg, int argc, int fd);
+int		ft_unset(t_envir **envir, t_envir **exp, char **arg, int fd);
 void	ft_copy_env(char **env, t_envir **envir);
-void	ft_export(t_envir **exp, t_envir **env, t_parser *data , int fd);
+int		ft_export(t_envir **exp, t_envir **env, t_parser *data , int fd);
 void	sort_export(t_envir *exp);
-void	ft_env_printf(t_envir *env, int fd);
+int		ft_env_printf(t_envir *env, int fd);
 void	ft_exp_printf(t_envir *exp, int fd);
 void	init_env(t_envir **env, t_envir **exp);
 int		ft_count_arg(char **arg);
@@ -90,7 +90,7 @@ char	**ft_split(const char *s, char c);
 t_pip	*ft_fil_pip(t_pip *pip, t_parser *data);
 char	*set_path(t_envir **env, char *cmd);
 int		size_list(t_parser *list);
-void	execution_utils(t_envir **envir, t_envir **exp, t_parser *data);
+void	execution_utils(t_envir **envir, t_envir **exp, t_parser *data, int *temp_fd);
 
 
 // void 	new_proce(t_parser *data, t_pip *pip, t_envir **env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:39:29 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/19 21:39:44 by aoueldma         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:31:41 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int	ft_alpha(t_token *link)
 		ft_rm_dollar(link);
 	else if (c == '?')
 	{
-		printf("WEHWERRHW\n");
+		// printf("WEHWERRHW\n");
 		ft_quest_mark(link);
 	}
 	else if (c >= 65 && c <= 90)
@@ -236,7 +236,7 @@ void	ft_quest_mark(t_token *link)
 	int		index;
 	int		len;
 
-	str = itoa(g_exit_error);
+	str = itoa(g_params.ret);
 	index = link->i;
 	len = 2;
 	ft_link_update(link, str, index, len);

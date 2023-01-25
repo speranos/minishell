@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 23:16:34 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 23:12:37 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 13:57:00 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ void	node_1(t_envir **env, t_parser *data)
 {
 	int		pid;
 	char	*path;
+	int		status;
 
 	// while (1);
 	path = NULL;
 	pid = fork();
+	g_params.is_process_running = 1;
+	data->process_id = pid;
 	if (pid == 0)
 	{
 		ft_redirection_in_out(data);
@@ -36,7 +39,10 @@ void	node_1(t_envir **env, t_parser *data)
 	}
 	// if (path)
 	// 	free(path);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status) == 0)
+		g_params.ret = WEXITSTATUS(status);
+	g_params.is_process_running = 0;
 }
 
 int	one_node(t_envir **env, t_envir **exp, t_parser *data)
@@ -49,8 +55,10 @@ int	one_node(t_envir **env, t_envir **exp, t_parser *data)
 	check_herdox(data);
 	if (is_built(data) == 0)
 	{
+		data->process_id = -1;
 		ft_redirection_in_out(data);
 		ft_built(env, exp, data, 1);
+		g_params.ret = data->exit_status;
 	}
 	else
 		node_1(env, data);

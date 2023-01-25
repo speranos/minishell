@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexxx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:40:34 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/19 21:40:40 by aoueldma         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:38:48 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_add_back(t_token **link, t_token *node)
 
 void	ft_lexxx_init(t_lexer *lexer)
 {
-	g_exit_error = 0;
+	// g_params.ret = 0;
 	lexer->i = 0;
 	lexer->quotes = 0;
 	lexer->c = lexer->input[lexer->i];

@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:12:06 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 23:16:34 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 13:46:35 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,17 @@ int	exp_error(char *arg, int fd)
 	return (1);
 }
 
-void	ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd)
+int	ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd)
 {
 	int		si;
 	int		i;
 	int		size;
 	char	*name;
+	int		ret;
 
 	i = 1;
 	si = ft_count_arg(data->args);
+	ret = 0;
 	if (si < 2)
 	{
 		sort_export(*exp);
@@ -72,11 +74,15 @@ void	ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd)
 			size = ft_strlen(ft_strchr(data->args[i], '='));
 			name = ft_substr(data->args[i], 0, ft_strlen(data->args[i]) - size);
 			if (data->args[i] && !is_valid(name))
+			{
 				add_export(exp, env, data, name, i);
+				ret = 0;
+			}
 			else
-				exp_error(data->args[i], fd);
+				return (exp_error(data->args[i], fd));
 			free(name);
 			i++;
 		}
 	}
+	return (ret);
 }

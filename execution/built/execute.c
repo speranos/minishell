@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:35:16 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/25 00:12:31 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 14:05:21 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 	int		temp_fd;
 	int		tmpin;
 	int		tmpout;
+	int		status;
 
 	temp_fd = 0;
 	tmpin = dup(0);
@@ -87,13 +88,29 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 	else
 	{
 		check_herdox(data);
-		execution_utils(envir, exp, data);
+		execution_utils(envir, exp, data, &temp_fd);
 		if (temp_fd != 0)
 			close(temp_fd);
 		dup2(tmpin, 0);
 		dup2(tmpout, 1);
-		while (waitpid(-1, NULL, 0) > 0);
+		// while (waitpid(-1, NULL, 0) > 0);
+		while (data)
+		{
+			if (data->process_id != -1)
+			{
+				waitpid(data->process_id, &status, 0);
+				if (WIFSIGNALED(status) == 0)
+					g_params.ret = WEXITSTATUS(status);
+			}
+			else
+			{
+				g_params.ret = data->exit_status;
+			}
+			data = data->next;
+		}
+		g_params.is_process_running = 0;
 	}
+
 }
 
 void	ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd)
@@ -106,17 +123,18 @@ void	ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd)
 		ft_putstr_fd(pwd, fd);
 		write(fd, "\n", 1);
 		free(pwd);
+		tmp->exit_status = 0;
 	}
 	else if (!strcmp(tmp->args[0], "echo"))
-		ft_echo(tmp->args, fd);
+		tmp->exit_status = ft_echo(tmp->args, fd);
 	else if (!strcmp(tmp->args[0], "cd"))
-		ft_cd(tmp->args[1], envir, exp);
+		tmp->exit_status = ft_cd(tmp->args[1], envir, exp);
 	else if (!strcmp(tmp->args[0], "exit"))
-		ft_exit(tmp->args, ft_count_arg(tmp->args), fd);
+		tmp->exit_status = ft_exit(tmp->args, ft_count_arg(tmp->args), fd);
 	else if (!strcmp(tmp->args[0], "env"))
-		ft_env_printf(*envir, fd);
+		tmp->exit_status = ft_env_printf(*envir, fd);
 	else if (!strcmp(tmp->args[0], "unset"))
-		ft_unset(envir, exp, tmp->args, fd);
+		tmp->exit_status = ft_unset(envir, exp, tmp->args, fd);
 	else if (!strcmp(tmp->args[0], "export"))
-		ft_export(exp, envir, tmp, fd);
+		tmp->exit_status = ft_export(exp, envir, tmp, fd);
 }

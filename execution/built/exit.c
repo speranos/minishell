@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:00:11 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/20 18:00:12 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 13:43:47 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	erro_exit(char *arg, int fd)
 	exit(255);
 }
 
-void	ft_exit(char **arg, int argc, int fd)
+int	ft_exit(char **arg, int argc, int fd)
 {
 	int	i;
 
@@ -53,8 +53,9 @@ void	ft_exit(char **arg, int argc, int fd)
 		else if (!is_number(arg[1]) && argc > 2)
 		{
 			ft_putstr_fd("exit\nminishell: exit: too many arguments\n", fd);
-			break ;
+			return (1);
 		}
 		i++;
 	}
+	return (0);
 }

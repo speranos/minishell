@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexxx.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:40:46 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/19 21:40:48 by aoueldma         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:52:43 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,25 @@ typedef struct parser
 {
 	char			**args;
 	t_redi			*redi;
+	int				her_doc;
+	int				herdoc_fd;
+	pid_t			process_id;
+	int				exit_status;
 	struct parser	*next;
 }	t_parser;
 
-int	g_exit_error;
+typedef struct s_params
+{
+	int		ret;
+	int		is_heredoc_running;
+	int		inputfd;
+	int		is_process_running;
+}	t_params;
+
+t_params	g_params;
+
+// int	g_exit_error;
+
 t_parser	*ft_lexxx(char *input);
 t_token		*ft_token(int type, char *str);
 char		*ft_conv_to_str(char c);
@@ -79,5 +94,7 @@ t_token		*ft_app_input(t_lexer *lexer);
 void		ft_ignore_spaces(t_lexer *lexer);
 void		ft_single_quotes(t_lexer *lexer);
 void		ft_init(t_token *link);
+
+char    *get_next_line(int fd);
 
 #endif

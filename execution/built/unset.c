@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:40:02 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 18:15:27 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 12:59:04 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_sear_env(t_envir **envir, char *arg)
 	return (1);
 }
 
-void	ft_unset(t_envir **envir, t_envir **exp, char **arg, int fd)
+int	ft_unset(t_envir **envir, t_envir **exp, char **arg, int fd)
 {
 	int		j;
 	t_envir	*tmp;
@@ -92,4 +92,5 @@ void	ft_unset(t_envir **envir, t_envir **exp, char **arg, int fd)
 		}
 		j++;
 	}
+	return (0);
 }

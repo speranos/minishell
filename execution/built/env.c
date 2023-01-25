@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 21:08:25 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 15:25:40 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 12:58:36 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	ft_copy_env(char **env, t_envir **envir)
 	}
 }
 
-void	ft_env_printf(t_envir *env, int fd)
+int	ft_env_printf(t_envir *env, int fd)
 {
 	if(!env)
 	{
 		ft_error("minishell: ", "env:", " No such file or directory\n", 127);
-		return ;
+		return (1);
 	}
 	while (env)
 	{
@@ -38,4 +38,5 @@ void	ft_env_printf(t_envir *env, int fd)
 		ft_putstr_fd("\n", fd);
 		env = env->next;
 	}
+	return (0);
 }

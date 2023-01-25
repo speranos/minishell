@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 10:26:47 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/25 00:24:06 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/25 12:20:39 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,16 @@ int	herdoc(t_parser *data)
 	int		fd;
 
 	fd = open("/tmp/herdc.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	g_params.is_heredoc_running = 1;
+	g_params.inputfd = dup(0);
 	while (data->redi)
 	{
 		while (1)
 		{
-			line = readline("> ");
+			ft_putstr_fd(">", 1);
+			line = get_next_line(g_params.inputfd);
+			if (!line)
+				break ;
 			if (ft_strcmp(line, data->redi->fname) == 0)
 			{
 				free(line);
@@ -36,6 +41,9 @@ int	herdoc(t_parser *data)
 		data->redi = data->redi->next;
 	}
 	close(fd);
+	g_params.is_heredoc_running = 0;
+	if (g_params.inputfd != -1)
+		close(g_params.inputfd);
 	fd = open("/tmp/herdc.txt", O_RDWR, 0644);
 	// dup2(fd, 0);
 	// close(fd);

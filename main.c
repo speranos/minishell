@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:43:05 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/22 17:26:32 by aoueldma         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:00:16 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,58 @@ void    sig_handler(int signum)
 // 	rl_replace_line("", 0);
 // 	rl_redisplay();
 // }
-// void	sig_handler(int sig_init)
-// {
-// 	sig_init = 0;
-// 	exit(0);
-// }
+
+void	sig_handler(int sig_init)
+{
+	(void) sig_init;
+	if (g_params.is_heredoc_running)
+	{
+		// printf("adsfadsf\n");
+		close(g_params.inputfd);
+		g_params.is_heredoc_running = 0;
+		g_params.inputfd = -1;
+		g_params.ret = 1;
+		ft_putstr_fd("\n", 1);
+	}
+	else
+	{
+
+		if (g_params.is_process_running == 1)
+		{
+			// printf("ooooooooooo\n");
+
+			// if (g_params.proccess_id != -1)
+			// 	kill(g_params.proccess_id, SIGTERM);
+			g_params.ret = 130;
+			ft_putstr_fd("\n", 1);
+		}
+		else
+		{
+			g_params.ret = 1;
+			ft_putstr_fd("\n", 1);
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();			
+		}
+	}
+}
+
+void	sig_quit(int sig_init)
+{
+	(void) sig_init;
+
+	if (g_params.is_process_running)
+	{
+		g_params.ret = 131;
+		ft_putstr_fd("Quit: 3\n", 1);
+	}
+	else
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		// signal(SIGQUIT, SIG_IGN);
+	}
+}
 
 void	init_env(t_envir **env, t_envir **exp)
 {
@@ -78,7 +125,7 @@ void	ft_args_check(int ac, char **env, t_envir **envir, t_envir **exp)
 	init_env(envir, exp);
 	ft_copy_env(env, envir);
 	ft_copy_env(env, exp);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 }
 
 int	main(int ac, char **av, char **env)
@@ -90,8 +137,9 @@ int	main(int ac, char **av, char **env)
 
 	(void)av;
 	ft_args_check(ac, env, &envir, &exp);
-	signal(SIGQUIT, SIG_IGN);
-	// signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_quit);
+	signal(SIGINT, sig_handler);
+	g_params.ret = 0;
 	while (1)
 	{
 		input = readline("ach_tama>$ ");
