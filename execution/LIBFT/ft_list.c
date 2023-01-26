@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_envir.c                                          :+:      :+:    :+:   */
+/*   ft_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 10:32:04 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/04 10:36:09 by abihe            ###   ########.fr       */
+/*   Created: 2023/01/25 22:38:02 by abihe             #+#    #+#             */
+/*   Updated: 2023/01/25 23:01:10 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_add_front(t_envir *var, t_envir *new)
 t_envir	*ft_lstnew(char *line)
 {
 	t_envir	*node;
-	int     size;
+	int		size;
 
 	node = malloc(sizeof(t_envir));
 	if (!node)
@@ -55,41 +55,42 @@ t_envir	*ft_lstnew(char *line)
 	size = ft_strlen(ft_strchr(line, '='));
 	node->name = ft_substr(line, 0, ft_strlen(line) - size);
 	node->value = ft_substr(line, ft_strlen(line) - size + 1, ft_strlen(line));
-	// printf("Size : %d || len : %zu\n", size, ft_strlen(line));
 	node->next = NULL;
 	return (node);
 }
 
-void    delete_node(t_envir **env, char *name)
+void	free_ftlist(t_envir **env, t_envir	*tmp)
 {
-    t_envir    *tmp;
-    t_envir    *prev;
+	(*env) = (*env)->next;
+	free(tmp->name);
+	free(tmp->value);
+	free(tmp->line_env);
+	free(tmp);
+}
 
-    tmp = *env;
-    if (tmp && !(ft_strcmp(tmp->name, name)))
-    {
-        (*env) = (*env)->next;
-        free(tmp->name);
-        free(tmp->value);
-        free(tmp->line_env);
-        free(tmp);
-        return ;
-    }
-    else
-    {
-        while (tmp)
-        {
-            if (!ft_strcmp(tmp->name, name))
-            {
-                prev->next = tmp->next;
+void	delete_node(t_envir **env, char *name)
+{
+	t_envir	*tmp;
+	t_envir	*prev;
+
+	tmp = *env;
+	if (tmp && !(ft_strcmp(tmp->name, name)))
+		free_ftlist(env, tmp);
+	else
+	{
+		while (tmp)
+		{
+			if (!ft_strcmp(tmp->name, name))
+			{
+				prev->next = tmp->next;
 				free(tmp->name);
-        		free(tmp->value);
-        		free(tmp->line_env);
-                free(tmp);
-                break ;
-            }
-            prev = tmp;
-            tmp = tmp->next;
-        }
-    }
+				free(tmp->value);
+				free(tmp->line_env);
+				free(tmp);
+				break ;
+			}
+			prev = tmp;
+			tmp = tmp->next;
+		}
+	}
 }

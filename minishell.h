@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:43:14 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/19 21:43:16 by aoueldma         ###   ########.fr       */
+/*   Updated: 2023/01/25 22:44:51 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@
 # include "parser/parser.h"
 # include "expand/expand.h"
 # include <signal.h>
-#include "execution/exec.h"
+# include "execution/exec.h"
 
 #endif

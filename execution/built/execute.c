@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:35:16 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/25 14:05:21 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 02:51:39 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,24 @@ char	**set_env(t_envir *env)
 	return (str);
 }
 
+void	ft_justnorm(t_parser *data, int status)
+{
+	while (data)
+	{
+		if (data->process_id != -1)
+		{
+			waitpid(data->process_id, &status, 0);
+			if (WIFSIGNALED(status) == 0)
+				g_params.ret = WEXITSTATUS(status);
+		}
+		else
+		{
+			g_params.ret = data->exit_status;
+		}
+		data = data->next;
+	}
+}
+
 void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 {
 	int		temp_fd;
@@ -81,6 +99,7 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 	int		status;
 
 	temp_fd = 0;
+	status = 0;
 	tmpin = dup(0);
 	tmpout = dup(1);
 	if (!data->next)
@@ -93,21 +112,7 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 			close(temp_fd);
 		dup2(tmpin, 0);
 		dup2(tmpout, 1);
-		// while (waitpid(-1, NULL, 0) > 0);
-		while (data)
-		{
-			if (data->process_id != -1)
-			{
-				waitpid(data->process_id, &status, 0);
-				if (WIFSIGNALED(status) == 0)
-					g_params.ret = WEXITSTATUS(status);
-			}
-			else
-			{
-				g_params.ret = data->exit_status;
-			}
-			data = data->next;
-		}
+		ft_justnorm(data, status);
 		g_params.is_process_running = 0;
 	}
 
@@ -115,7 +120,7 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 
 void	ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd)
 {
-	char *pwd;
+	char	*pwd;
 
 	if (!strcmp(tmp->args[0], "pwd"))
 	{

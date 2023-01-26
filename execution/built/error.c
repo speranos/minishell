@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:56:02 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/24 12:22:08 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 02:51:08 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int	ft_error(char *str, char *arg, char *str2, int ex)
 
 void	exit_status(char *str)
 {
-	DIR		*dir;
-	
+	DIR	*dir;
+
 	dir = opendir(str);
 	if (str[0] == '/' && dir == NULL)
 		ft_error("minishell: ", str, ": No such file or directory\n", 127);
 	else if (dir && ft_strchr(str, '/'))
 	{
-		closedir(dir);	
+		closedir(dir);
 		ft_error("minishell: ", str, ": is a directory\n", 126);
 	}
 	else if (!dir && ft_strchr(str, '/'))

@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:40:46 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/25 12:52:43 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 02:58:42 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct lexer
 	int		len;
 	char	*input;
 	int		quotes;
-
 }	t_lexer;
 
 typedef struct token

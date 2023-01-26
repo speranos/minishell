@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 10:26:47 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/25 12:20:39 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 02:41:22 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	herdoc(t_parser *data)
 	{
 		while (1)
 		{
-			ft_putstr_fd(">", 1);
+			ft_putstr_fd("> ", 1);
 			line = get_next_line(g_params.inputfd);
 			if (!line)
 				break ;
@@ -45,14 +45,13 @@ int	herdoc(t_parser *data)
 	if (g_params.inputfd != -1)
 		close(g_params.inputfd);
 	fd = open("/tmp/herdc.txt", O_RDWR, 0644);
-	// dup2(fd, 0);
-	// close(fd);
 	return (fd);
 }
 
 void	check_herdox(t_parser *data)
 {
 	t_redi	*temp;
+	t_redi	*temp1;
 
 	while (data)
 	{
@@ -65,7 +64,9 @@ void	check_herdox(t_parser *data)
 				data->her_doc = 1;
 				data->herdoc_fd = herdoc(data);
 			}
-			temp = temp->next;
+			temp1 = temp->next;
+			free(temp);
+			temp = temp1;
 		}
 		data = data->next;
 	}
