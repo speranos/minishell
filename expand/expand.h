@@ -6,7 +6,7 @@
 /*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:40:09 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/19 21:40:18 by aoueldma         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:54:55 by aoueldma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	ft_quest_mark(t_token *link);
 char	*itoa(int num);
 int		ft_num_len(int num);
 int		ft_fin_len(t_token *link, char *str, int def);
+void	ft_num_to_finstr(t_token *link, int len, int tmp);
 
 #endif

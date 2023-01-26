@@ -12,11 +12,6 @@
 
 #include "minishell.h"
 
-void	ft_intro(void)
-{
-	printf("\n\n\t\t\t\t\t\\\\\\\\ WELCOME TO MINISHELL //// \n\n");
-}
-
 void	sig_handler(int sig_init)
 {
 	(void) sig_init;
@@ -61,25 +56,6 @@ void	sig_quit(int sig_init)
 	}
 }
 
-void	init_env(t_envir **env, t_envir **exp)
-{
-	env = NULL;
-	exp = NULL;
-}
-
-void	ft_args_check(int ac, char **env, t_envir **envir, t_envir **exp)
-{
-	if (ac != 1)
-	{
-		printf("arg...error!!!\nprogram...exit...byye!!!\n");
-		exit(0);
-	}
-	ft_intro();
-	init_env(envir, exp);
-	ft_copy_env(env, envir);
-	ft_copy_env(env, exp);
-}
-
 void	ft_inputnorm(char *input, t_parser *data, t_envir *envir, t_envir *exp)
 {
 	add_history(input);
@@ -111,9 +87,35 @@ int	main(int ac, char **av, char **env)
 			ft_inputnorm(input, data, envir, exp);
 		else
 		{
-			write(2, "exit\n", 6);
+			printf("exit\n");
 			exit(1);
 		}
 		free(input);
+	}
+}
+
+void	ft_print(t_parser *data)
+{
+	int		i;
+	t_redi	*tmp_redi;
+
+	i = 0;
+	tmp_redi = data->redi;
+	while (data != NULL)
+	{
+		tmp_redi = data->redi;
+		while (data->args[i] != NULL)
+		{
+			printf("args ==========+++++ %s\n", data->args[i]);
+			i++;
+		}
+		while (tmp_redi != NULL)
+		{
+			printf("filename ==>>>>>>>>> %s\n", tmp_redi->fname);
+			printf("Redi_e_type ==>>>>>>>>> %d\n", tmp_redi->e_type);
+			tmp_redi = tmp_redi->next;
+		}
+		i = 0;
+		data = data->next;
 	}
 }

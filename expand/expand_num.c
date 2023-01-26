@@ -1,29 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token.c                                         :+:      :+:    :+:   */
+/*   expand_num.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 21:41:53 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/26 10:55:46 by aoueldma         ###   ########.fr       */
+/*   Created: 2023/01/26 13:21:31 by aoueldma          #+#    #+#             */
+/*   Updated: 2023/01/26 13:21:33 by aoueldma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*ft_token(int type, char *str)
+void	ft_rm_num(t_token *link)
 {
-	t_token	*next_node;
+	int	tmp;
+	int	i;
+	int	len;
 
-	next_node = malloc(sizeof(t_token));
-	next_node->str = str;
-	next_node->e_type = type;
-	next_node->next = NULL;
-	return (next_node);
+	tmp = (link->i += 2);
+	i = tmp;
+	len = 0;
+	while (link->str[i])
+	{
+		len++;
+		i++;
+	}
+	ft_num_to_finstr(link, i, tmp);
 }
 
-void	ft_syntax_error(void)
+void	ft_num_to_finstr(t_token *link, int len, int tmp)
 {
-	printf("minishell: syntax...error...\n");
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = malloc(sizeof(char) * (len + 1));
+	while (link->str[tmp])
+	{
+		str[i++] = link->str[tmp++];
+	}
+	str[i] = '\0';
+	free(link->str);
+	link->str = str;
+	link->i = -1;
 }

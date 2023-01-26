@@ -6,7 +6,7 @@
 /*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:42:19 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/19 21:42:21 by aoueldma         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:56:08 by aoueldma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	ft_add_env(t_parser *data, char **env);
 void	ft_oper(t_parser **data, t_token **link);
 void	ft_quote_to_skip(t_token *link, char c, char *str);
 void	ft_mv_to_next(t_token *link_tmp, t_token **link, t_parser **data);
+void	ft_redi_add_link(t_parser **tmp, t_redi *red_tmp);
 
 #endif

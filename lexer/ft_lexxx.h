@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexxx.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 21:40:46 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/26 02:58:42 by abihe            ###   ########.fr       */
+/*   Created: 2023/01/26 10:55:16 by aoueldma          #+#    #+#             */
+/*   Updated: 2023/01/26 10:55:18 by aoueldma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ t_token		*ft_app_input(t_lexer *lexer);
 void		ft_ignore_spaces(t_lexer *lexer);
 void		ft_single_quotes(t_lexer *lexer);
 void		ft_init(t_token *link);
-
-char    *get_next_line(int fd);
+char		*get_next_line(int fd);
 
 #endif
