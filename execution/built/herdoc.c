@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 10:26:47 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/26 02:41:22 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 14:16:19 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	check_herdox(t_parser *data)
 				data->herdoc_fd = herdoc(data);
 			}
 			temp1 = temp->next;
-			free(temp);
+			// free(temp);
 			temp = temp1;
 		}
 		data = data->next;
