@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	ft_update_ex(t_token *link, int tmp)
+void	ft_update_ex(t_token *link, int tmp, t_envir *envir)
 {
 	char	*str;
 	char	*get_str;
@@ -28,11 +28,12 @@ void	ft_update_ex(t_token *link, int tmp)
 		str[i++] = link->str[tmp++];
 	}
 	str[i] = '\0';
-	get_str = getenv(str);
+	get_str = get_env(str, envir);
 	//(getenv)to BE MODIFIED
 	i++;
 	ft_link_update(link, get_str, index, i);
 	free(str);
+	free(get_str);
 }
 
 void	ft_link_update(t_token *link, char *str, int index, int def)

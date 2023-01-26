@@ -35,7 +35,7 @@ int	ft_alphanum(char c)
 	return (1);
 }
 
-int	ft_alpha(t_token *link)
+int	ft_alpha(t_token *link, t_envir *envir)
 {
 	char	c;
 
@@ -43,7 +43,7 @@ int	ft_alpha(t_token *link)
 	if (c >= 48 && c <= 57)
 		ft_rm_num(link);
 	else if (c == 34 || c == 39)
-		ft_rm_dollar(link);
+		ft_rm_dollar(link, envir);
 	else if (c == '?')
 		ft_quest_mark(link);
 	else if (c >= 65 && c <= 90)
@@ -55,11 +55,11 @@ int	ft_alpha(t_token *link)
 	return (1);
 }
 
-void	ft_rm_dollar(t_token *link)
+void	ft_rm_dollar(t_token *link, t_envir *envir)
 {
 	int	tmp;
 
 	tmp = link->i++;
 	link->len = 2;
-	ft_update_ex(link, tmp);
+	ft_update_ex(link, tmp, envir);
 }

@@ -59,7 +59,7 @@ void	sig_quit(int sig_init)
 void	ft_inputnorm(char *input, t_parser *data, t_envir *envir, t_envir *exp)
 {
 	add_history(input);
-	data = ft_lexxx(input);
+	data = ft_lexxx(input, envir);
 	if (data != NULL)
 	{
 		ft_execution(&envir, &exp, data);

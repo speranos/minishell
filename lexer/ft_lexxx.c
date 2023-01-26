@@ -52,7 +52,7 @@ void	ft_lexxx_init(t_lexer *lexer)
 	lexer->c = lexer->input[lexer->i];
 }
 
-t_parser	*ft_lexxx(char *input)
+t_parser	*ft_lexxx(char *input, t_envir *envir)
 {
 	t_lexer		lexer;
 	t_token		*node;
@@ -73,7 +73,7 @@ t_parser	*ft_lexxx(char *input)
 		ft_free_link(link);
 		return (NULL);
 	}
-	ft_expand(link);
+	ft_expand(link, envir);
 	ft_remove_quotes(link);
 	ft_oper(&data, &link);
 	return (data);
