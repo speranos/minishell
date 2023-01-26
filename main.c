@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:43:05 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/26 03:04:19 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 04:00:37 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void	init_env(t_envir **env, t_envir **exp)
 {
 	env = NULL;
 	exp = NULL;
-	env = malloc(sizeof(t_envir));
-	exp = malloc(sizeof(t_envir));
 }
 
 void	ft_args_check(int ac, char **env, t_envir **envir, t_envir **exp)
