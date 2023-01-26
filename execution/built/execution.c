@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 23:34:04 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/26 02:52:38 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 14:04:22 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,23 @@ char	**if_build_helper(t_envir **envir, t_parser *data, int *fd, int *temp_fd)
 int	if_build_in(int *fd, t_envir **envir, t_parser *data, int *temp_fd)
 {
 	int		pid;
-	char	*path;
+	char	*path = NULL;
 	char	**env;
 
-	path = set_path(envir, data->args[0], 0);
 	pid = fork();
 	g_params.is_process_running = 1;
 	data->process_id = pid;
 	if (pid == 0)
 	{
+		path = set_path(envir, data->args[0], 0);
 		env = if_build_helper(envir, data, fd, temp_fd);
-		if (execve(path, data->args, env) == -1)
+		if (execve(path, data->args, set_env(*envir)) == -1)
 		{
-			free_double(env);
-			exit(1);
+			// free_double(env);
+			//exit(1);
+			dup2(temp_fd[0], 1);
+			dup2(temp_fd[1], 0);
+			printf("roma %s\n",path);
 			exit_status(data->args[0]);
 		}
 	}
@@ -64,7 +67,8 @@ int	if_build_in(int *fd, t_envir **envir, t_parser *data, int *temp_fd)
 		free(path);
 		return (1);
 	}
-	free(path);
+	//if (path)
+	//	printf("roma %s",path);//free(path);
 	return (0);
 }
 
