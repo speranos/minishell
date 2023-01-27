@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_update_str.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoueldma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:21:48 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/26 13:21:50 by aoueldma         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:12:12 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_update_ex(t_token *link, int tmp, t_envir *envir)
 	}
 	str[i] = '\0';
 	get_str = get_env(str, envir);
-	//(getenv)to BE MODIFIED
 	i++;
 	ft_link_update(link, get_str, index, i);
 	free(str);

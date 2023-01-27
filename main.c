@@ -6,23 +6,28 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:43:05 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/26 04:00:37 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 23:10:07 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	sig_norm(void)
+{
+	g_params.herdoc_dead = 1;
+	close(g_params.inputfd);
+	close(0);
+	g_params.is_heredoc_running = 0;
+	g_params.inputfd = -1;
+	g_params.ret = 1;
+	ft_putstr_fd("\n", 1);
+}
+
 void	sig_handler(int sig_init)
 {
 	(void) sig_init;
 	if (g_params.is_heredoc_running)
-	{
-		close(g_params.inputfd);
-		g_params.is_heredoc_running = 0;
-		g_params.inputfd = -1;
-		g_params.ret = 1;
-		ft_putstr_fd("\n", 1);
-	}
+		sig_norm();
 	else
 	{
 		if (g_params.is_process_running == 1)
@@ -91,31 +96,5 @@ int	main(int ac, char **av, char **env)
 			exit(1);
 		}
 		free(input);
-	}
-}
-
-void	ft_print(t_parser *data)
-{
-	int		i;
-	t_redi	*tmp_redi;
-
-	i = 0;
-	tmp_redi = data->redi;
-	while (data != NULL)
-	{
-		tmp_redi = data->redi;
-		while (data->args[i] != NULL)
-		{
-			printf("args ==========+++++ %s\n", data->args[i]);
-			i++;
-		}
-		while (tmp_redi != NULL)
-		{
-			printf("filename ==>>>>>>>>> %s\n", tmp_redi->fname);
-			printf("Redi_e_type ==>>>>>>>>> %d\n", tmp_redi->e_type);
-			tmp_redi = tmp_redi->next;
-		}
-		i = 0;
-		data = data->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:43:45 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/25 12:56:28 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 15:59:09 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_cd(char *argv, t_envir **env, t_envir **exp)
 	}
 	else
 	{
-		printf("minishell: cd: %s No such file or directory", argv);
+		printf("minishell: cd: %s No such file or directory\n", argv);
 		return (1);
 	}
 }

@@ -6,46 +6,11 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:35:16 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/26 02:51:39 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 20:55:22 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	is_built(t_parser *tmp)
-{
-	if (!ft_strcmp(tmp->args[0], "pwd"))
-		return (0);
-	else if (!ft_strcmp(tmp->args[0], "echo"))
-		return (0);
-	else if (!ft_strcmp(tmp->args[0], "cd"))
-		return (0);
-	else if (!ft_strcmp(tmp->args[0], "exit"))
-		return (0);
-	else if (!ft_strcmp(tmp->args[0], "env"))
-		return (0);
-	else if (!ft_strcmp(tmp->args[0], "unset"))
-		return (0);
-	else if (!ft_strcmp(tmp->args[0], "export"))
-		return (0);
-	else
-		return (1);
-}
-
-int	size_list(t_parser *list)
-{
-	int	i;
-
-	i = 0;
-	if (!list)
-		return (0);
-	while (list)
-	{
-		list = list->next;
-		i++;
-	}
-	return (i);
-}
 
 char	**set_env(t_envir *env)
 {
@@ -106,8 +71,10 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 		one_node(envir, exp, data);
 	else
 	{
+		g_params.herdoc_dead = 0;
 		check_herdox(data);
-		execution_utils(envir, exp, data, &temp_fd);
+		if (g_params.herdoc_dead == 0)
+			mul_pip(envir, exp, data, &temp_fd);
 		if (temp_fd != 0)
 			close(temp_fd);
 		dup2(tmpin, 0);
@@ -115,7 +82,6 @@ void	ft_execution(t_envir **envir, t_envir **exp, t_parser *data)
 		ft_justnorm(data, status);
 		g_params.is_process_running = 0;
 	}
-
 }
 
 void	ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd)

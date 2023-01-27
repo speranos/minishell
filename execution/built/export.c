@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:12:06 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/26 02:54:23 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 21:39:33 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,25 @@ int	ft_count_arg(char **arg)
 	return (i);
 }
 
-void	add_export(t_envir **exp, t_envir **env, t_parser *data, char *name, int i)
+void	add_export(t_envir **exp, t_envir **env, char *data, char *name)
 {
-	if (!ft_sear_env(exp, data->args[i]))
+	if (!ft_sear_env(exp, data))
 	{
-		if (ft_strchr(data->args[i], '=') != NULL)
+		if (ft_strchr(data, '=') != NULL)
 		{
 			delete_node(exp, name);
 			delete_node(env, name);
-			ft_add_ba(exp, ft_lstnew(data->args[i]));
-			ft_add_ba(env, ft_lstnew(data->args[i]));
+			ft_add_ba(exp, ft_lstnew(data));
+			ft_add_ba(env, ft_lstnew(data));
 		}
 	}
-	else if (ft_strchr(data->args[i], '='))
+	else if (ft_strchr(data, '='))
 	{
-		ft_add_ba(env, ft_lstnew(data->args[i]));
-		ft_add_ba(exp, ft_lstnew(data->args[i]));
+		ft_add_ba(env, ft_lstnew(data));
+		ft_add_ba(exp, ft_lstnew(data));
 	}
 	else
-		ft_add_ba(exp, ft_lstnew(data->args[i]));
+		ft_add_ba(exp, ft_lstnew(data));
 }
 
 int	exp_error(char *arg, int fd)
@@ -67,7 +67,7 @@ int	ft_norm(int fd, t_parser *data, t_envir **exp, t_envir **env)
 		name = ft_substr(data->args[i], 0, ft_strlen(data->args[i]) - size);
 		if (data->args[i] && !is_valid(name))
 		{
-			add_export(exp, env, data, name, i);
+			add_export(exp, env, data->args[i], name);
 			ret = 0;
 		}
 		else

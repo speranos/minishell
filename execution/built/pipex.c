@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 23:16:34 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/26 02:48:54 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 23:01:25 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,21 @@ int	one_node(t_envir **env, t_envir **exp, t_parser *data)
 	int	tmpout;
 
 	tmpin = dup(0);
-	tmpout = dup(0);
+	tmpout = dup(1);
+	g_params.herdoc_dead = 0;
 	check_herdox(data);
-	if (is_built(data) == 0)
+	if (g_params.herdoc_dead == 0)
 	{
-		data->process_id = -1;
-		ft_redirection_in_out(data);
-		ft_built(env, exp, data, 1);
-		g_params.ret = data->exit_status;
+		if (is_built(data) == 0)
+		{
+			data->process_id = -1;
+			ft_redirection_in_out(data);
+			ft_built(env, exp, data, 1);
+			g_params.ret = data->exit_status;
+		}
+		else
+			node_1(env, data);
 	}
-	else
-		node_1(env, data);
 	dup2(tmpin, 0);
 	dup2(tmpout, 1);
 	return (0);

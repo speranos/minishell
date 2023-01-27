@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:00:11 by abihe             #+#    #+#             */
-/*   Updated: 2023/01/26 02:52:48 by abihe            ###   ########.fr       */
+/*   Updated: 2023/01/26 23:12:13 by abihe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_exit(char **arg, int argc, int fd)
 	while (i < argc)
 	{
 		if (!is_number(arg[1]) && argc == 2)
-			exit(atoi(arg[1]));
+			exit(ft_atoi(arg[1]));
 		else if (is_number(arg[1]))
 			erro_exit(arg[1], fd);
 		else if (!is_number(arg[1]) && argc > 2)
