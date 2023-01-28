@@ -67,7 +67,7 @@ void	ft_inputnorm(char *input, t_parser *data, t_envir *envir, t_envir *exp)
 	data = ft_lexxx(input, envir);
 	if (data != NULL)
 	{
-		ft_execution(&envir, &exp, data);
+		//ft_execution(&envir, &exp, data);
 		ft_free_parser(data);
 	}
 }
@@ -76,14 +76,14 @@ int	main(int ac, char **av, char **env)
 {
 	char		*input;
 	t_parser	*data;
-	t_envir		*envir;
-	t_envir		*exp;
+	// t_envir		*envir;
+	// t_envir		*exp;
 
 	(void)av;
 	data = NULL;
 	ft_args_check(ac, env, &envir, &exp);
-	signal(SIGQUIT, sig_quit);
-	signal(SIGINT, sig_handler);
+	// signal(SIGQUIT, sig_quit);
+	// signal(SIGINT, sig_handler);
 	g_params.ret = 0;
 	while (1)
 	{
