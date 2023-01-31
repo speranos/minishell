@@ -6,7 +6,7 @@
 /*   By: abihe <abihe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:02:50 by aoueldma          #+#    #+#             */
-/*   Updated: 2023/01/26 23:12:52 by abihe            ###   ########.fr       */
+/*   									              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-typedef struct s_envir
-{
-	char			*line_env;
-	char			*name;
-	char			*value;
-	struct s_envir	*next;
-}t_envir;
 
 typedef struct lexer
 {
@@ -170,45 +162,5 @@ int			ft_atoi(const char *str);
 int			ft_syntax_check(t_token *link);
 int			ft_after_red(t_token *link);
 int			ft_after_pipe(t_token *link);
-
-//built
-char		*ft_pwd(t_envir *env);
-int			ft_echo(char **arg, int fd);
-int			ft_cd(char *argv, t_envir **env, t_envir **exp);
-int			ft_exit(char **arg, int argc, int fd);
-int			ft_unset(t_envir **envir, t_envir **exp, char **arg, int fd);
-void		ft_copy_env(char **env, t_envir **envir);
-int			ft_export(t_envir **exp, t_envir **env, t_parser *data, int fd);
-void		sort_export(t_envir *exp);
-int			ft_env_printf(t_envir *env, int fd);
-void		ft_exp_printf(t_envir *exp, int fd);
-void		init_env(t_envir **env, t_envir **exp);
-int			ft_count_arg(char **arg);
-int			ft_sear_env(t_envir **envir, char *arg);
-void		ft_built(t_envir **envir, t_envir **exp, t_parser *tmp, int fd);
-int			is_built(t_parser *tmp);
-int			ft_error(char *str, char *arg, char *str2, int exit);
-int			is_valid(char *str);
-
-//pipe
-char		**ft_split(const char *s, char c);
-char		*set_path(t_envir **env, char *cmd, int i);
-int			size_list(t_parser *list);
-void		execution_utils(t_envir **envir, t_envir **exp, \
-t_parser *data, int *temp_fd);
-void		mul_pip(t_envir **envir, t_envir **exp, \
-t_parser *data, int *temp_fd);
-int			ft_redirection_built_out(t_parser *data);
-int			ft_redirection_in_out(t_parser *data);
-void		red_0(t_parser *data, int fdin);
-
-int			one_node(t_envir **env, t_envir **exp, t_parser *data);
-void		ft_execution(t_envir **envir, t_envir **exp, t_parser *data);
-char		**set_env(t_envir *env);
-int			herdoc(t_parser *data);
-void		check_herdox(t_parser *data);
-void		exit_status(char *str);
-void		free_double(char **str);
-char		*get_env(char *var, t_envir *env);
 
 #endif
